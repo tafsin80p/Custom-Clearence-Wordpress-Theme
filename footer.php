@@ -1,6 +1,8 @@
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> Custom Clearance. All Rights Reserved.</p>
-    </footer>
-    <?php wp_footer(); ?>
-</body>
-</html>
+<?php
+
+// ...other footer logic if needed...
+
+get_template_part('template-parts/footer-main');
+
+wp_footer();
+?>

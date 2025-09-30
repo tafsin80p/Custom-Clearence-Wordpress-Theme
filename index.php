@@ -1,6 +1,6 @@
 <?php get_header(); ?>
-<section class="index h-screen bg-gray-100 text-black p-8">
-    <h1 class="text-6xl font-bold mb-4">Welcome to Custom Clearance Theme</h1>
+<section class="index h-screen bg-[#17476a] text-white p-8">
+    <h1 class="text-5xl  font-bold  p-4">Transitaire au Maroc</h1>
     <?php if (have_posts()) : ?>
         <div class="posts">
             <?php while (have_posts()) : the_post(); ?>
@@ -14,4 +14,5 @@
         <p>No posts available.</p>
     <?php endif; ?>
 </section>
+
 <?php get_footer(); ?>

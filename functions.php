@@ -3,9 +3,10 @@
 function custom_clearance_enqueue_assets() {
     // TailwindCSS styles
     wp_enqueue_style( 'tailwind-output', get_template_directory_uri() . '/src/output.css' );
-
+    // Add header.css
+    wp_enqueue_style( 'header-css', get_template_directory_uri() . '/src/header.css' );
     // Enqueue the main JavaScript file
-    wp_enqueue_script( 'main-js', get_template_directory_uri() . '/JS/main.js', array('jquery'), null, true );
+    wp_enqueue_script( 'main-js', get_template_directory_uri() . '/assets/js/ui/main.js', array('jquery'), null, true );
 
     // Enqueue custom JavaScript for 404 page (conditionally)
     if ( is_404() ) {
@@ -26,5 +27,16 @@ function custom_clearance_setup() {
 }
 
 add_action( 'after_setup_theme', 'custom_clearance_setup' );
+
+// Theme options
+require_once get_template_directory() . '/inc/header-funcation.php';
+
+// Elementor Widgets
+require_once get_template_directory() . '/inc/elementor-widgets.php';
+
+function change_logo_class( $html ) {
+    $html = str_replace( 'class="custom-logo"', 'class="custom-logo h-16 w-64 object-contain"', $html );
+    return $html;
+}
+add_filter( 'get_custom_logo', 'change_logo_class' );
 ?>
-<?php
