@@ -1,17 +1,14 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
+
 module.exports = {
   content: [
-    './*.php',
-    './**/*.php',
-    './templates/**/*.php',
-    './assets/js/**/*.js',
+    './src/**/*.{html,js,jsx,ts,tsx}', // Make sure this path is correct
+    './node_modules/daisyui/dist/**/*.js', // Ensure DaisyUI is included
   ],
   theme: {
-    extend: {
-      colors: {
-       
-      },
-    },
+    extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'), // Adding DaisyUI plugin
+  ],
 }
