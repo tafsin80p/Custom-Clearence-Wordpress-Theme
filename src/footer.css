@@ -9,7 +9,7 @@
     max-width: 1221px;
     margin: 0 auto;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     flex-direction: column;
     gap: 40px;
@@ -29,7 +29,6 @@
     align-items: center;
     gap: 15px;
 }
-
 
 .footer-description {
     font-size: 16px;
@@ -75,9 +74,10 @@
     .footer-container {
         flex-direction: row;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: start;
         gap: 60px;
     }
+    
     .footer-logo img {
         height: 60px;
         object-fit: contain;

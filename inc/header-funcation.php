@@ -133,4 +133,3 @@ function custom_theme_customize_register( $wp_customize ) {
     ));
 }
 add_action('customize_register', 'custom_theme_customize_register');
-
