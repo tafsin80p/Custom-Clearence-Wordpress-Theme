@@ -5,60 +5,65 @@
 
 get_header(); ?>
 
-<div class="container mx-auto py-20 px-4 max-w-[1221px]">
+<!-- Hero Section -->
 
-    <section id="contact-header" class="text-center mb-16">
-        <h1 class="text-5xl font-bold text-gray-900 mb-4" data-aos="fade-up">
-            Contact Us
-        </h1>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-            We are here to help. Reach out to us with any questions or to start your project.
-        </p>
-    </section>
-
-    <section id="contact-content">
-        <div class="grid md:grid-cols-2 gap-12">
-
-            <!-- Contact Form -->
-            <div class="bg-white p-8 rounded-lg shadow-lg" data-aos="fade-right" data-aos-delay="200">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Send us a Message</h2>
-                <?php 
-                // Replace this shortcode with your actual contact form shortcode
-                echo do_shortcode( '[contact-form-7 id="12345" title="Contact form 1"]' ); 
-                ?>
+<section class="bg-gradient-to-r from-[#0F2033] to-[#1A2B3C] text-white py-20 px-4 text-center relative overflow-hidden"
+    style="background-image: url('https://customsclearance.ma/wp-content/uploads/2015/11/header_bg_5.jpg');  background-position: center; background-repeat: no-repeat; background-size: cover; height: 300px;">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="container mx-auto max-w-[1221px] px-4 relative z-10">
+        <div class="text-center">
+            <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight">Contactez-Nous</h1>
+            <div class="text-lg text-white mt-4">
+                <a href="<?php echo home_url(); ?>" class="hover:underline">Accueil</a> &raquo; <span>Contact</span>
             </div>
+        </div>
+    </div>
+</section>
+<!-- Main Content -->
+<main class="py-20 px-4 bg-gray-50" id="main-content">
+    <div class="container mx-auto max-w-[1221px] px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Section -->
+            <div class="text-gray-800">
+                <h2 class="text-3xl font-bold text-[#384050] mb-4">Parlons de votre dossier</h2>
+                <p class="text-lg text-gray-600 mb-8">Devis détaillé en 24h. Upload de proforma/facture et liste de colisage.</p>
 
-            <!-- Contact Details -->
-            <div data-aos="fade-left" data-aos-delay="300">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Contact Information</h2>
-                <div class="space-y-6">
-                    <div class="flex items-start space-x-4">
-                        <i class="fa-solid fa-phone text-2xl text-gray-600 mt-1"></i>
-                        <div>
-                            <h3 class="text-xl font-semibold text-gray-700">Phone</h3>
-                            <p class="text-gray-600"><?php echo get_theme_mod( 'footer_phone', '+212 675 828 200' ); ?></p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-4">
-                        <i class="fa-solid fa-envelope text-2xl text-gray-600 mt-1"></i>
-                        <div>
-                            <h3 class="text-xl font-semibold text-gray-700">Email</h3>
-                            <p class="text-gray-600"><a href="mailto:<?php echo get_theme_mod( 'footer_email', 'contact@customsclearance.ma' ); ?>" class="hover:text-blue-600"><?php echo get_theme_mod( 'footer_email', 'contact@customsclearance.ma' ); ?></a></p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-4">
-                        <i class="fa-solid fa-map-marker-alt text-2xl text-gray-600 mt-1"></i>
-                        <div>
-                            <h3 class="text-xl font-semibold text-gray-700">Main Office</h3>
-                            <p class="text-gray-600"><?php echo get_theme_mod( 'footer_location_1', 'Casablanca – Bd Mohammed V' ); ?></p>
-                        </div>
-                    </div>
+                <div class="space-y-4">
+                    <a href="/quote" class="w-full text-center bg-[#17476a] text-white py-3 px-4 rounded-lg font-semibold hover:bg-[#0c283b] transition-colors duration-200 inline-block">Obtenir un devis</a>
+                    <button onclick="openWhatsApp()" class="w-full bg-white border-2 border-gray-300 text-gray-800 px-6 py-4 rounded-lg text-lg font-medium hover:bg-gray-100 transition-transform flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp text-green-500 text-xl"></i> WhatsApp Pro
+                    </button>
                 </div>
             </div>
 
-        </div>
-    </section>
+            <!-- Right Section - Form -->
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <form id="contactFormElement" class="space-y-6 text-[#17476a]">
+                    <div>
+                        <label for="name" class="sr-only">Nom / Société</label>
+                        <input type="text" id="name" name="name" placeholder="Nom / Société" class="w-full px-4 py-3 border-2 border-[#E5E7EB] rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6]" required>
+                    </div>
 
-</div>
+                    <div>
+                        <label for="email" class="sr-only">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Email" class="w-full px-4 py-3 border-2 border-[#E5E7EB] rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6]" required>
+                    </div>
+
+                    <div>
+                        <label for="phone" class="sr-only">Téléphone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Téléphone" class="w-full px-4 py-3 border-2 border-[#E5E7EB] rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6]" required>
+                    </div>
+
+                    <div>
+                        <label for="message" class="sr-only">Votre message</label>
+                        <textarea id="message" name="message" placeholder="Votre message" rows="4" class="w-full px-4 py-3 border-2 border-[#E5E7EB] rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6]" required></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-[#0F2033] text-white px-6 py-4 rounded-lg text-lg font-semibold hover:bg-[#1A2B3C] transform transition-all duration-300 submit-btn">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
 
 <?php get_footer(); ?>
