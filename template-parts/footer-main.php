@@ -29,7 +29,8 @@
         wp_nav_menu( array(
             'theme_location' => 'footer_useful_links',
             'container'      => false,
-            'menu_class'     => 'footer-list',
+            'menu_class'     => 'footer-list text-[15px] gap-12', // these classes will be added to the <ul>
+            
         ) );
         ?>
             </div>

@@ -36,13 +36,14 @@ $button_font_size = get_theme_mod( 'button_font_size', '16px' );
                         </label>
                     </div>
                     <div class="flex-none hidden lg:block">
-                        <nav
+                        <nav role="navigation" aria-label="Primary Menu"
                             style="font-size: <?php echo esc_attr( $header_font_size ); ?>; color: <?php echo esc_attr( $menu_text_color ); ?>; font-family: <?php echo esc_attr( $header_font_family ); ?>;">
                             <?php 
                                 wp_nav_menu( array(
                                     'theme_location' => 'primary',
                                     'container'      => false,
-                                    'menu_class'     => 'flex space-x-6',
+                                    'menu_class'     => 'flex space-x-6', // these classes will be added to the <ul>
+                                    'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
                                 ) );
                             ?>
                         </nav>
@@ -59,10 +60,12 @@ $button_font_size = get_theme_mod( 'button_font_size', '16px' );
             <div class="p-4 w-80 min-h-full"
                 style="background-color: <?php echo esc_attr( $header_bg_color ); ?>; color: <?php echo esc_attr( $menu_text_color ); ?>; font-family: <?php echo esc_attr( $header_font_family ); ?>;">
                 <?php
+                    // Drawer menu: vertical on small screens, horizontal on large screens
                     wp_nav_menu( array(
                         'theme_location' => 'primary',
                         'container'      => false,
-                        'menu_class'     => 'menu',
+                        'menu_class'     => 'menu flex flex-col lg:flex-row gap-2 lg:gap-6',
+                        'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
                     ) );
                 ?>
                 <div class="mt-4">
@@ -73,3 +76,13 @@ $button_font_size = get_theme_mod( 'button_font_size', '16px' );
         </div>
     </div>
 </header>
+
+<style>
+/* Force the ul inside that nav to be horizontal */
+.header nav > .flex > ul,
+.header nav ul {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem; /* optional spacing similar to space-x-6 */
+}
+</style>

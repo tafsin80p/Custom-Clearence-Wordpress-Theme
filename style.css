@@ -9,3 +9,7 @@ Text Domain: custom-clearance
 */
 
 /* TailwindCSS default styles will be included here */
+
+body {
+    font-family: sans-serif;
+}

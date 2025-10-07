@@ -20,6 +20,11 @@ function custom_clearance_enqueue_assets() {
         wp_enqueue_style( 'page-contact-css', get_template_directory_uri() . '/assets/css/page-contact.css' );
         wp_enqueue_script( 'page-contact-js', get_template_directory_uri() . '/assets/js/page-contact.js', array(), null, true );
     }
+
+    // Conditional Quote page assets
+    if ( is_page_template('page-quote.php') ) {
+        wp_enqueue_script( 'page-quote-js', get_template_directory_uri() . '/assets/js/page-quote.js', array(), null, true );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'custom_clearance_enqueue_assets' );
 function custom_clearance_enqueue_fonts() {
@@ -80,6 +85,37 @@ function change_logo_class( $html ) {
     return $html;
 }
 add_filter( 'get_custom_logo', 'change_logo_class' );
+
+/**
+ * Add Tailwind flex classes to each <li> of the primary menu so items can layout with flexbox.
+ * This makes it easy to align icons and text inside menu items.
+ */
+function custom_primary_menu_li_flex_classes( $classes, $item, $args, $depth ) {
+    if ( isset( $args->theme_location ) && 'primary' === $args->theme_location ) {
+        // Avoid duplicating classes if they're already present
+        if ( ! in_array( 'flex', $classes, true ) ) {
+            $classes[] = 'flex';
+        }
+        if ( ! in_array( 'items-center', $classes, true ) ) {
+            $classes[] = 'items-center';
+        }
+    }
+    return $classes;
+}
+add_filter( 'nav_menu_css_class', 'custom_primary_menu_li_flex_classes', 10, 4 );
+
+/**
+ * Add flex classes to the <a> inside primary menu items so icon+text align.
+ */
+function custom_primary_menu_link_attributes( $atts, $item, $args, $depth ) {
+    if ( isset( $args->theme_location ) && 'primary' === $args->theme_location ) {
+        $existing = isset( $atts['class'] ) ? $atts['class'] . ' ' : '';
+        $atts['class'] = trim( $existing . 'flex items-center' );
+    }
+    return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'custom_primary_menu_link_attributes', 10, 4 );
+
 
 function custom_clearance_widgets_init() {
     register_sidebar( array(
