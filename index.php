@@ -37,7 +37,7 @@
                 </p>
 
                 <!-- Call to Action -->
-                <div class="flex items-center space-x-4 mb-12" data-aos="fade-up" data-aos-delay="400"
+                <div class="flex items-center space-x-1 md:space-x-4 mb-12" data-aos="fade-up" data-aos-delay="400"
                     data-aos-duration="1200">
                     <button
                         class="cta-button btn rounded-full text-[#0A3D62] bg-white flex items-center space-x-2 justify-center">
@@ -227,7 +227,7 @@
             <div class="grid sm:grid-cols-1 lg:grid-cols-5 gap-4">
                 <!-- Loop through Location Cards 1 to 5 -->
                 <?php for ( $i = 1; $i <= 5; $i++ ): ?>
-                <div class="location-card bg-white rounded-lg p-4 sm:p-12 shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 w-full"
+                <div class="location-card bg-white rounded-lg p-4 sm:p-8 shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 w-full"
                     data-aos="fade-up" data-aos-duration="1000" data-aos-delay="<?php echo $i * 100; ?>">
                     <div class="flex items-start mb-3">
                         <div class="w-10 h-10 rounded flex items-center justify-center mr-3 mt-1">
@@ -260,8 +260,6 @@
                 <?php endfor; ?>
             </div>
         </div>
-
-
 
         <!-- Testimonials Section -->
         <div id="testimonials">

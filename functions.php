@@ -19,22 +19,27 @@ function custom_clearance_enqueue_assets() {
     if ( is_page_template('page-contact.php') ) {
         wp_enqueue_style( 'page-contact-css', get_template_directory_uri() . '/assets/css/page-contact.css' );
         wp_enqueue_script( 'page-contact-js', get_template_directory_uri() . '/assets/js/page-contact.js', array(), null, true );
+        wp_enqueue_script( 'whatsapp-js', get_template_directory_uri() . '/assets/js/ui/whatsapp.js', array(), null, true );
     }
 
     // Conditional Quote page assets
     if ( is_page_template('page-quote.php') ) {
         wp_enqueue_script( 'page-quote-js', get_template_directory_uri() . '/assets/js/page-quote.js', array(), null, true );
+        wp_enqueue_script( 'whatsapp-js', get_template_directory_uri() . '/assets/js/ui/whatsapp.js', array(), null, true );
     }
+
+    // It is recommended to host fonts locally for better performance and reliability.
+    // For example, you can download the font files and enqueue them like this:
+    // wp_enqueue_style( 'google-fonts', get_template_directory_uri() . '/assets/fonts/google-fonts.css', false );
+    // wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/fonts/font-awesome/css/all.min.css', false );
+
+    // Enqueue Font Awesome
+    // wp_enqueue_script('font-awesome', 'https://kit.fontawesome.com/a076d05399.js', array(), null, true);
+
+    // Enqueue Google Fonts
+    // wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap', false );
 }
 add_action( 'wp_enqueue_scripts', 'custom_clearance_enqueue_assets' );
-function custom_clearance_enqueue_fonts() {
-    wp_enqueue_script('font-awesome', 'https://kit.fontawesome.com/a076d05399.js', array(), null, true);
-}
-add_action('wp_enqueue_scripts', 'custom_clearance_enqueue_fonts');
-function custom_clearance_enqueue_google_fonts() {
-    wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap', false );
-}
-add_action( 'wp_enqueue_scripts', 'custom_clearance_enqueue_google_fonts' );
 
 
 // Theme setup (supports)
@@ -50,17 +55,14 @@ function custom_clearance_setup() {
 add_action( 'after_setup_theme', 'custom_clearance_setup' );
 
 // Theme options
-// Header customizer options were removed per user request. If you want to re-enable them,
-// uncomment the line below to load the header customizer controls.
-// require_once get_template_directory() . '/inc/header-funcation.php';
+require_once get_template_directory() . '/inc/header-function.php';
 
 // Elementor Widgets
 require_once get_template_directory() . '/inc/elementor-widgets.php';
 // Home Page options
-require_once get_template_directory() . '/inc/home-pagefuncation.php';
+require_once get_template_directory() . '/inc/home-page-function.php';
 
 // Footer options
-// Footer customizer options disabled. To re-enable, uncomment the line below.
 // require_once get_template_directory() . '/inc/footer-options.php';
 
 // City Post Type
@@ -87,6 +89,8 @@ add_action( 'wp_enqueue_scripts', 'enqueue_aos_assets' );
 
 
 function change_logo_class( $html ) {
+    // Note: This method of changing the class is fragile and may break with future WordPress updates.
+    // A more robust solution would be to use a DOM parser to add the class.
     $html = str_replace( 'class="custom-logo"', 'class="custom-logo h-16 w-64 object-contain"', $html );
     return $html;
 }
@@ -136,80 +140,5 @@ function custom_clearance_widgets_init() {
 }
 add_action( 'widgets_init', 'custom_clearance_widgets_init' );
 
-// Add Theme Options Page
-function custom_clearance_theme_menu() {
-    add_menu_page(
-        'Theme Options',
-        'Theme Options',
-        'manage_options',
-        'custom-clearance-theme-options',
-        'custom_clearance_theme_options_page',
-        'dashicons-admin-generic',
-        60
-    );
-}
-add_action( 'admin_menu', 'custom_clearance_theme_menu' );
-
-// Render Theme Options Page
-function custom_clearance_theme_options_page() {
-    ?>
-    <div class="wrap">
-        <h1>Custom Clearance Theme Options</h1>
-        <form method="post" action="options.php">
-            <?php
-            settings_fields( 'custom_clearance_theme_options_group' );
-            do_settings_sections( 'custom-clearance-theme-options' );
-            submit_button();
-            ?>
-        </form>
-    </div>
-    <?php
-}
-
-// Register Theme Options
-function custom_clearance_register_theme_settings() {
-    register_setting(
-        'custom_clearance_theme_options_group',
-        'custom_clearance_theme_options',
-        'custom_clearance_theme_options_sanitize'
-    );
-
-    add_settings_section(
-        'custom_clearance_general_section',
-        'General Settings',
-        'custom_clearance_general_section_callback',
-        'custom-clearance-theme-options'
-    );
-
-    add_settings_field(
-        'custom_clearance_footer_text',
-        'Footer Text',
-        'custom_clearance_footer_text_callback',
-        'custom-clearance-theme-options',
-        'custom_clearance_general_section'
-    );
-}
-add_action( 'admin_init', 'custom_clearance_register_theme_settings' );
-
-// Section Callback
-function custom_clearance_general_section_callback() {
-    echo '<p>General theme settings.</p>';
-}
-
-// Field Callback
-function custom_clearance_footer_text_callback() {
-    $options = get_option( 'custom_clearance_theme_options' );
-    $footer_text = isset( $options['footer_text'] ) ? $options['footer_text'] : '';
-    echo '<input type="text" id="custom_clearance_footer_text" name="custom_clearance_theme_options[footer_text]" value="' . esc_attr( $footer_text ) . '" />';
-}
-
-// Sanitize Callback
-function custom_clearance_theme_options_sanitize( $input ) {
-    $new_input = array();
-    if ( isset( $input['footer_text'] ) ) {
-        $new_input['footer_text'] = sanitize_text_field( $input['footer_text'] );
-    }
-    return $new_input;
-}
-
-?>
+// Theme Options moved to a separate include for better organization
+require_once get_template_directory() . '/inc/theme-options.php';

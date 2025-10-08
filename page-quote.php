@@ -62,7 +62,7 @@ get_header(); ?>
             <h2 class="text-2xl font-extrabold text-[#1E293B] mb-4">Contact rapide</h2>
             <p class="text-sm text-[#64748B] mb-6">Vous préférez échanger directement ?</p>
 
-            <button class="w-full bg-white border-2 border-[#E5E7EB] text-[#1E293B] px-6 py-4 rounded-lg text-lg font-semibold hover:bg-[#F8FAFC] flex items-center justify-center gap-3 mb-6" onclick="openWhatsApp()">
+            <button class="w-full bg-white border-2 border-[#E5E7EB] text-[#1E293B] px-6 py-4 rounded-lg text-lg font-semibold hover:bg-[#F8FAFC] flex items-center justify-center gap-3 mb-6" onclick="openWhatsApp('212675828200', 'Bonjour, j\'aimerais obtenir des informations sur vos services de dédouanement.')">
                 <div class="bg-[#17476a] text-white w-6 h-6 rounded-full flex items-center justify-center text-sm"><i class="fa-brands fa-whatsapp"></i></div> WhatsApp Pro
             </button>
 

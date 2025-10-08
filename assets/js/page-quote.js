@@ -42,13 +42,6 @@ document.querySelector('input[type="file"]').addEventListener('change', function
     }
 });
 
-// WhatsApp button functionality
-function openWhatsApp() {
-    const phoneNumber = '212675828200';
-    const message = encodeURIComponent('Bonjour, j\'aimerais obtenir des informations sur vos services de dédouanement.');
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-    window.open(whatsappUrl, '_blank');
-}
 
 // Input validation
 const inputs = document.querySelectorAll('input[required], textarea[required]');
@@ -70,11 +63,8 @@ inputs.forEach(input => {
 
 // Email validation
 document.querySelector('input[type="email"]').addEventListener('blur', function () {
-<<<<<<< HEAD
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-=======
-    const emailRegex = /^[^S@]+@[^S@]+\.[^S@]+$/;
->>>>>>> 70c067eb63a353fad1adffc11e7f0396deef942a
+
     if (this.value && !emailRegex.test(this.value)) {
         this.style.borderColor = '#EF4444';
         alert('Veuillez entrer une adresse email valide');
