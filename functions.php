@@ -50,7 +50,9 @@ function custom_clearance_setup() {
 add_action( 'after_setup_theme', 'custom_clearance_setup' );
 
 // Theme options
-require_once get_template_directory() . '/inc/header-funcation.php';
+// Header customizer options were removed per user request. If you want to re-enable them,
+// uncomment the line below to load the header customizer controls.
+// require_once get_template_directory() . '/inc/header-funcation.php';
 
 // Elementor Widgets
 require_once get_template_directory() . '/inc/elementor-widgets.php';
@@ -58,7 +60,8 @@ require_once get_template_directory() . '/inc/elementor-widgets.php';
 require_once get_template_directory() . '/inc/home-pagefuncation.php';
 
 // Footer options
-require_once get_template_directory() . '/inc/footer-options.php';
+// Footer customizer options disabled. To re-enable, uncomment the line below.
+// require_once get_template_directory() . '/inc/footer-options.php';
 
 // Enqueue AOS assets
 function enqueue_aos_assets() {

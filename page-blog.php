@@ -6,12 +6,22 @@
 get_header();
 ?>
 
+<!-- Static Blog Hero -->
+<section class="blog-hero bg-cover bg-center text-white py-20 relative overflow-hidden" style="background-image: url('https://customsclearance.ma/wp-content/uploads/revslider/slider_3.jpg');">
+    <div class="absolute inset-0 bg-black/50" aria-hidden="true"></div>
+    <div class="container mx-auto max-w-[1221px] px-4 relative z-10 text-center">
+        <h1 class="text-4xl lg:text-5xl font-bold mb-4" data-aos="fade-up" data-aos-duration="1000">Ressources & Blog</h1>
+        <p class="text-gray-200 mb-4">Guides pratiques sur l'import, l'export et la conformité au Maroc.</p>
+        <nav class="text-sm" aria-label="Breadcrumb">
+            <a href="/" class="hover:underline">Accueil</a>
+            &nbsp;&raquo;&nbsp;
+            <span aria-current="page">Blog</span>
+        </nav>
+    </div>
+</section>
+
 <main class="py-16 bg-gray-50 text-black">
     <div class="container mx-auto max-w-[1221px] px-4">
-        <header class="mb-8">
-            <h1 class="text-4xl font-bold text-[#0F172A]">Ressources & Blog</h1>
-            <p class="text-gray-600 mt-2">Guides pratiques sur l'import, l'export et la conformité au Maroc.</p>
-        </header>
 
         <?php
         $paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
