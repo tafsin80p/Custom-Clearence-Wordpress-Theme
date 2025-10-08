@@ -63,6 +63,9 @@ require_once get_template_directory() . '/inc/home-pagefuncation.php';
 // Footer customizer options disabled. To re-enable, uncomment the line below.
 // require_once get_template_directory() . '/inc/footer-options.php';
 
+// City Post Type
+require_once get_template_directory() . '/inc/city-post-type.php';
+
 // Enqueue AOS assets
 function enqueue_aos_assets() {
     // Enqueue AOS styles
@@ -133,20 +136,80 @@ function custom_clearance_widgets_init() {
 }
 add_action( 'widgets_init', 'custom_clearance_widgets_init' );
 
+// Add Theme Options Page
+function custom_clearance_theme_menu() {
+    add_menu_page(
+        'Theme Options',
+        'Theme Options',
+        'manage_options',
+        'custom-clearance-theme-options',
+        'custom_clearance_theme_options_page',
+        'dashicons-admin-generic',
+        60
+    );
+}
+add_action( 'admin_menu', 'custom_clearance_theme_menu' );
 
+// Render Theme Options Page
+function custom_clearance_theme_options_page() {
+    ?>
+    <div class="wrap">
+        <h1>Custom Clearance Theme Options</h1>
+        <form method="post" action="options.php">
+            <?php
+            settings_fields( 'custom_clearance_theme_options_group' );
+            do_settings_sections( 'custom-clearance-theme-options' );
+            submit_button();
+            ?>
+        </form>
+    </div>
+    <?php
+}
 
+// Register Theme Options
+function custom_clearance_register_theme_settings() {
+    register_setting(
+        'custom_clearance_theme_options_group',
+        'custom_clearance_theme_options',
+        'custom_clearance_theme_options_sanitize'
+    );
 
+    add_settings_section(
+        'custom_clearance_general_section',
+        'General Settings',
+        'custom_clearance_general_section_callback',
+        'custom-clearance-theme-options'
+    );
 
+    add_settings_field(
+        'custom_clearance_footer_text',
+        'Footer Text',
+        'custom_clearance_footer_text_callback',
+        'custom-clearance-theme-options',
+        'custom_clearance_general_section'
+    );
+}
+add_action( 'admin_init', 'custom_clearance_register_theme_settings' );
 
+// Section Callback
+function custom_clearance_general_section_callback() {
+    echo '<p>General theme settings.</p>';
+}
 
+// Field Callback
+function custom_clearance_footer_text_callback() {
+    $options = get_option( 'custom_clearance_theme_options' );
+    $footer_text = isset( $options['footer_text'] ) ? $options['footer_text'] : '';
+    echo '<input type="text" id="custom_clearance_footer_text" name="custom_clearance_theme_options[footer_text]" value="' . esc_attr( $footer_text ) . '" />';
+}
 
-
-
-
-
-
-
-
-
+// Sanitize Callback
+function custom_clearance_theme_options_sanitize( $input ) {
+    $new_input = array();
+    if ( isset( $input['footer_text'] ) ) {
+        $new_input['footer_text'] = sanitize_text_field( $input['footer_text'] );
+    }
+    return $new_input;
+}
 
 ?>

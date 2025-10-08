@@ -4,5 +4,8 @@ function openWhatsApp() {
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, '_blank');
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 70c067eb63a353fad1adffc11e7f0396deef942a

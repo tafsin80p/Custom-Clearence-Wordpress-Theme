@@ -1,11 +1,18 @@
 <?php
 /**
+<<<<<<< HEAD
  * Page template automatically used for the "about-us" slug.
  */
 
 get_header();
 ?>
 
+=======
+ * Template Name: About Us Page
+ */
+
+get_header(); ?>
+>>>>>>> 70c067eb63a353fad1adffc11e7f0396deef942a
 
 <section class="bg-gradient-to-r from-[#0F2033] to-[#1A2B3C] text-white py-20 px-4 text-center relative overflow-hidden"
     style="background-image: url('https://customsclearance.ma/wp-content/uploads/2015/11/header_bg_6.jpg');  background-position: center; background-repeat: no-repeat; background-size: cover; height: 300px;">
@@ -158,6 +165,11 @@ get_header();
 
     </div>
 </main>
+<<<<<<< HEAD
 <?php
 get_footer();
 ?>
+=======
+
+<?php get_footer(); ?>
+>>>>>>> 70c067eb63a353fad1adffc11e7f0396deef942a

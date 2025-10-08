@@ -70,7 +70,11 @@ inputs.forEach(input => {
 
 // Email validation
 document.querySelector('input[type="email"]').addEventListener('blur', function () {
+<<<<<<< HEAD
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+=======
+    const emailRegex = /^[^S@]+@[^S@]+\.[^S@]+$/;
+>>>>>>> 70c067eb63a353fad1adffc11e7f0396deef942a
     if (this.value && !emailRegex.test(this.value)) {
         this.style.borderColor = '#EF4444';
         alert('Veuillez entrer une adresse email valide');
