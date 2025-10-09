@@ -68,6 +68,9 @@ require_once get_template_directory() . '/inc/home-page-function.php';
 // City Post Type
 require_once get_template_directory() . '/inc/city-post-type.php';
 
+// Service Post Type
+require_once get_template_directory() . '/inc/service-post-type.php';
+
 // Enqueue AOS assets
 function enqueue_aos_assets() {
     // Enqueue AOS styles

@@ -31,115 +31,137 @@ add_action( 'admin_enqueue_scripts', 'custom_clearance_admin_enqueue_scripts' );
 
 // Render Theme Options Page
 function custom_clearance_theme_options_page() {
-    $active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'hero';
+    $active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'about_us';
+    $active_sub_tab = isset( $_GET['sub_tab'] ) ? sanitize_text_field( wp_unslash( $_GET['sub_tab'] ) ) : 'hero';
     $options = get_option( 'custom_clearance_theme_options', array() );
     ?>
     <div class="wrap theme-options-wrap">
-        <h1>About Us Page Options</h1>
+        <h1>Theme Options</h1>
 
         <h2 class="nav-tab-wrapper">
-            <a href="?page=custom-clearance-theme-options&tab=hero" class="nav-tab <?php echo $active_tab === 'hero' ? 'nav-tab-active' : ''; ?>">Hero</a>
-            <a href="?page=custom-clearance-theme-options&tab=introduction" class="nav-tab <?php echo $active_tab === 'introduction' ? 'nav-tab-active' : ''; ?>">Introduction</a>
-            <a href="?page=custom-clearance-theme-options&tab=mission" class="nav-tab <?php echo $active_tab === 'mission' ? 'nav-tab-active' : ''; ?>">Mission</a>
-            <a href="?page=custom-clearance-theme-options&tab=values" class="nav-tab <?php echo $active_tab === 'values' ? 'nav-tab-active' : ''; ?>">Values</a>
-            <a href="?page=custom-clearance-theme-options&tab=faq" class="nav-tab <?php echo $active_tab === 'faq' ? 'nav-tab-active' : ''; ?>">FAQ</a>
+            <a href="?page=custom-clearance-theme-options&tab=about_us" class="nav-tab <?php echo $active_tab === 'about_us' ? 'nav-tab-active' : ''; ?>">About Us</a>
+            <a href="?page=custom-clearance-theme-options&tab=blog" class="nav-tab <?php echo $active_tab === 'blog' ? 'nav-tab-active' : ''; ?>">Blog</a>
+            <a href="?page=custom-clearance-theme-options&tab=cities" class="nav-tab <?php echo $active_tab === 'cities' ? 'nav-tab-active' : ''; ?>">Cities</a>
+            <a href="?page=custom-clearance-theme-options&tab=contact" class="nav-tab <?php echo $active_tab === 'contact' ? 'nav-tab-active' : ''; ?>">Contact</a>
+            <a href="?page=custom-clearance-theme-options&tab=quote" class="nav-tab <?php echo $active_tab === 'quote' ? 'nav-tab-active' : ''; ?>">Quote</a>
         </h2>
 
         <form method="post" action="options.php">
             <?php settings_fields( 'custom_clearance_theme_options_group' ); ?>
 
             <div class="theme-options-content">
-                <?php if ( 'hero' === $active_tab ) : ?>
-                    <div class="theme-options-section">
-                        <div class="theme-options-grid">
-                            <?php 
-                            custom_clearance_render_field('about_us_hero_title', 'Hero Title', $options, 'text', 'The title of the hero section.');
-                            custom_clearance_render_field('about_us_breadcrumb_home', 'Breadcrumb Home', $options, 'text', 'The text for the home link in the breadcrumb.');
-                            custom_clearance_render_field('about_us_breadcrumb_current', 'Breadcrumb Current', $options, 'text', 'The text for the current page in the breadcrumb.');
-                            custom_clearance_render_field('about_us_hero_image', 'Hero Image', $options, 'image', 'The background image for the hero section.');
-                            ?>
+                <?php if ( 'about_us' === $active_tab ) : ?>
+                    <h3 class="nav-tab-wrapper">
+                        <a href="?page=custom-clearance-theme-options&tab=about_us&sub_tab=hero" class="nav-tab <?php echo $active_sub_tab === 'hero' ? 'nav-tab-active' : ''; ?>">Hero</a>
+                        <a href="?page=custom-clearance-theme-options&tab=about_us&sub_tab=introduction" class="nav-tab <?php echo $active_sub_tab === 'introduction' ? 'nav-tab-active' : ''; ?>">Introduction</a>
+                        <a href="?page=custom-clearance-theme-options&tab=about_us&sub_tab=mission" class="nav-tab <?php echo $active_sub_tab === 'mission' ? 'nav-tab-active' : ''; ?>">Mission</a>
+                        <a href="?page=custom-clearance-theme-options&tab=about_us&sub_tab=values" class="nav-tab <?php echo $active_sub_tab === 'values' ? 'nav-tab-active' : ''; ?>">Values</a>
+                        <a href="?page=custom-clearance-theme-options&tab=about_us&sub_tab=faq" class="nav-tab <?php echo $active_sub_tab === 'faq' ? 'nav-tab-active' : ''; ?>">FAQ</a>
+                    </h3>
+                    <?php if ( 'hero' === $active_sub_tab ) : ?>
+                        <div class="theme-options-section">
+                            <div class="theme-options-grid">
+                                <?php 
+                                custom_clearance_render_field('about_us_hero_title', 'Hero Title', $options, 'text', 'The title of the hero section.');
+                                custom_clearance_render_field('about_us_breadcrumb_home', 'Breadcrumb Home', $options, 'text', 'The text for the home link in the breadcrumb.');
+                                custom_clearance_render_field('about_us_breadcrumb_current', 'Breadcrumb Current', $options, 'text', 'The text for the current page in the breadcrumb.');
+                                custom_clearance_render_field('about_us_hero_image', 'Hero Image', $options, 'image', 'The background image for the hero section.');
+                                ?>
+                            </div>
                         </div>
-                    </div>
-                <?php elseif ( 'introduction' === $active_tab ) : ?>
-                    <div class="theme-options-section">
-                        <div class="theme-options-grid">
-                            <?php 
-                            custom_clearance_render_field('about_us_intro_title', 'Intro Title', $options, 'text', 'The title of the introduction section.');
-                            custom_clearance_render_field('about_us_intro_text_1', 'Intro Paragraph 1', $options, 'textarea', 'The first paragraph of the introduction.');
-                            custom_clearance_render_field('about_us_intro_text_2', 'Intro Paragraph 2', $options, 'textarea', 'The second paragraph of the introduction.');
-                            custom_clearance_render_field('about_us_intro_image', 'Intro Image', $options, 'image', 'The image for the introduction section.');
-                            ?>
+                    <?php elseif ( 'introduction' === $active_sub_tab ) : ?>
+                        <div class="theme-options-section">
+                            <div class="theme-options-grid">
+                                <?php 
+                                custom_clearance_render_field('about_us_intro_title', 'Intro Title', $options, 'text', 'The title of the introduction section.');
+                                custom_clearance_render_field('about_us_intro_text_1', 'Intro Paragraph 1', $options, 'textarea', 'The first paragraph of the introduction.');
+                                custom_clearance_render_field('about_us_intro_text_2', 'Intro Paragraph 2', $options, 'textarea', 'The second paragraph of the introduction.');
+                                custom_clearance_render_field('about_us_intro_image', 'Intro Image', $options, 'image', 'The image for the introduction section.');
+                                ?>
+                            </div>
                         </div>
-                    </div>
-                <?php elseif ( 'mission' === $active_tab ) : ?>
-                    <div class="theme-options-section">
-                        <div class="theme-options-grid">
-                            <?php 
-                            custom_clearance_render_field('about_us_mission_title', 'Mission Title', $options, 'text', 'The title of the mission section.');
-                            custom_clearance_render_field('about_us_mission_text', 'Mission Text', $options, 'textarea', 'The text of the mission section.');
-                            ?>
+                    <?php elseif ( 'mission' === $active_sub_tab ) : ?>
+                        <div class="theme-options-section">
+                            <div class="theme-options-grid">
+                                <?php 
+                                custom_clearance_render_field('about_us_mission_title', 'Mission Title', $options, 'text', 'The title of the mission section.');
+                                custom_clearance_render_field('about_us_mission_text', 'Mission Text', $options, 'textarea', 'The text of the mission section.');
+                                ?>
+                            </div>
                         </div>
-                    </div>
-                <?php elseif ( 'values' === $active_tab ) : ?>
-                    <div class="theme-options-section">
-                        <div class="theme-options-grid">
-                            <?php 
-                            custom_clearance_render_field('about_us_values_title', 'Values Title', $options, 'text', 'The title of the values section.');
-                            custom_clearance_render_field('about_us_value_1_title', 'Value 1 Title', $options, 'text', 'The title of the first value.');
-                            custom_clearance_render_field('about_us_value_1_text', 'Value 1 Text', $options, 'textarea', 'The text of the first value.');
-                            custom_clearance_render_field('about_us_value_2_title', 'Value 2 Title', $options, 'text', 'The title of the second value.');
-                            custom_clearance_render_field('about_us_value_2_text', 'Value 2 Text', $options, 'textarea', 'The text of the second value.');
-                            custom_clearance_render_field('about_us_value_3_title', 'Value 3 Title', $options, 'text', 'The title of the third value.');
-                            custom_clearance_render_field('about_us_value_3_text', 'Value 3 Text', $options, 'textarea', 'The text of the third value.');
-                            ?>
+                    <?php elseif ( 'values' === $active_sub_tab ) : ?>
+                        <div class="theme-options-section">
+                            <div class="theme-options-grid">
+                                <?php 
+                                custom_clearance_render_field('about_us_values_title', 'Values Title', $options, 'text', 'The title of the values section.');
+                                custom_clearance_render_field('about_us_value_1_title', 'Value 1 Title', $options, 'text', 'The title of the first value.');
+                                custom_clearance_render_field('about_us_value_1_text', 'Value 1 Text', $options, 'textarea', 'The text of the first value.');
+                                custom_clearance_render_field('about_us_value_2_title', 'Value 2 Title', $options, 'text', 'The title of the second value.');
+                                custom_clearance_render_field('about_us_value_2_text', 'Value 2 Text', $options, 'textarea', 'The text of the second value.');
+                                custom_clearance_render_field('about_us_value_3_title', 'Value 3 Title', $options, 'text', 'The title of the third value.');
+                                custom_clearance_render_field('about_us_value_3_text', 'Value 3 Text', $options, 'textarea', 'The text of the third value.');
+                                ?>
+                            </div>
                         </div>
-                    </div>
-                <?php elseif ( 'faq' === $active_tab ) : ?>
-                    <div class="theme-options-section">
-                        <div class="theme-options-grid">
-                            <?php 
-                            custom_clearance_render_field('about_us_faq_title', 'FAQ Title', $options, 'text', 'The title of the FAQ section.');
-                            ?>
-                            <div class="theme-option-card repeater-card">
-                                <div class="theme-option-card-header">
-                                    <h3>FAQ Items</h3>
-                                </div>
-                                <div class="theme-option-card-body">
-                                    <div class="repeater">
-                                        <div class="repeater-items">
-                                            <?php
-                                            $faq_items = isset( $options['about_us_faq_items'] ) ? json_decode( $options['about_us_faq_items'], true ) : array();
-                                            if ( ! empty( $faq_items ) ) {
-                                                foreach ( $faq_items as $item ) {
-                                                    ?>
-                                                    <div class="repeater-item">
-                                                        <label>Question</label>
-                                                        <input type="text" data-field="q" value="<?php echo esc_attr( $item['q'] ); ?>" class="widefat" />
-                                                        <label>Answer</label>
-                                                        <textarea data-field="a" class="widefat"><?php echo esc_textarea( $item['a'] ); ?></textarea>
-                                                        <a href="#" class="remove-repeater-item">Remove</a>
-                                                    </div>
-                                                    <?php
+                    <?php elseif ( 'faq' === $active_sub_tab ) : ?>
+                        <div class="theme-options-section">
+                            <div class="theme-options-grid">
+                                <?php 
+                                custom_clearance_render_field('about_us_faq_title', 'FAQ Title', $options, 'text', 'The title of the FAQ section.');
+                                ?>
+                                <div class="theme-option-card repeater-card">
+                                    <div class="theme-option-card-header">
+                                        <h3>FAQ Items</h3>
+                                    </div>
+                                    <div class="theme-option-card-body">
+                                        <div class="repeater">
+                                            <div class="repeater-items">
+                                                <?php
+                                                $faq_items = isset( $options['about_us_faq_items'] ) ? json_decode( $options['about_us_faq_items'], true ) : array();
+                                                if ( ! empty( $faq_items ) ) {
+                                                    foreach ( $faq_items as $item ) {
+                                                        ?>
+                                                        <div class="repeater-item">
+                                                            <label>Question</label>
+                                                            <input type="text" data-field="q" value="<?php echo esc_attr( $item['q'] ); ?>" class="widefat" />
+                                                            <label>Answer</label>
+                                                            <textarea data-field="a" class="widefat"><?php echo esc_textarea( $item['a'] ); ?></textarea>
+                                                            <a href="#" class="remove-repeater-item">Remove</a>
+                                                        </div>
+                                                        <?php
+                                                    }
                                                 }
-                                            }
-                                            ?>
-                                        </div>
-                                        <div class="repeater-item-template" style="display:none;">
-                                            <div class="repeater-item">
-                                                <label>Question</label>
-                                                <input type="text" data-field="q" value="" class="widefat" />
-                                                <label>Answer</label>
-                                                <textarea data-field="a" class="widefat"></textarea>
-                                                <a href="#" class="remove-repeater-item">Remove</a>
+                                                ?>
                                             </div>
+                                            <div class="repeater-item-template" style="display:none;">
+                                                <div class="repeater-item">
+                                                    <label>Question</label>
+                                                    <input type="text" data-field="q" value="" class="widefat" />
+                                                    <label>Answer</label>
+                                                    <textarea data-field="a" class="widefat"></textarea>
+                                                    <a href="#" class="remove-repeater-item">Remove</a>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="button-secondary add-repeater-item">Add FAQ</a>
+                                            <input type="hidden" name="custom_clearance_theme_options[about_us_faq_items]" class="repeater-val" value="<?php echo esc_attr( isset( $options['about_us_faq_items'] ) ? $options['about_us_faq_items'] : '' ); ?>" />
                                         </div>
-                                        <a href="#" class="button-secondary add-repeater-item">Add FAQ</a>
-                                        <input type="hidden" name="custom_clearance_theme_options[about_us_faq_items]" class="repeater-val" value="<?php echo esc_attr( isset( $options['about_us_faq_items'] ) ? $options['about_us_faq_items'] : '' ); ?>" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
+                <?php elseif ( 'blog' === $active_tab ) : ?>
+                    <h2>Blog Page Options</h2>
+                    <p>Options for the blog page will go here.</p>
+                <?php elseif ( 'cities' === $active_tab ) : ?>
+                    <h2>Cities Page Options</h2>
+                    <p>Options for the cities page will go here.</p>
+                <?php elseif ( 'contact' === $active_tab ) : ?>
+                    <h2>Contact Page Options</h2>
+                    <p>Options for the contact page will go here.</p>
+                <?php elseif ( 'quote' === $active_tab ) : ?>
+                    <h2>Quote Page Options</h2>
+                    <p>Options for the quote page will go here.</p>
                 <?php endif; ?>
             </div>
 
@@ -169,6 +191,10 @@ function custom_clearance_get_default_theme_options() {
         'about_us_value_3_title' => 'Rapidité',
         'about_us_value_3_text' => 'Des procédures optimisées pour un dédouanement efficace et rapide de vos marchandises.',
         'about_us_faq_title' => 'Questions Fréquentes',
+        'blog_title' => 'Blog',
+        'cities_title' => 'Cities',
+        'contact_title' => 'Contact',
+        'quote_title' => 'Quote',
     );
 }
 
