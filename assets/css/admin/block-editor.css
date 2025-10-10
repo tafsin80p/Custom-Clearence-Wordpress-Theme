@@ -1,0 +1,107 @@
+/* Gutenberg Block Editor Styles */
+
+/* Services Block Editor Styles */
+.services-block-editor {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.services-block-preview {
+    background-color: #f8fafc;
+    border: 2px dashed #cbd5e0;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+.services-block-preview .container {
+    max-width: 100%;
+}
+
+/* Block Category Styles */
+.block-editor-block-types-list__item[data-type="customsclearance/services-block"] {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.block-editor-block-types-list__item[data-type="customsclearance/services-block"]:hover {
+    border-color: #17476a;
+    box-shadow: 0 4px 12px rgba(23, 71, 106, 0.15);
+}
+
+/* Inspector Controls Styling */
+.components-panel__body .components-base-control {
+    margin-bottom: 16px;
+}
+
+.components-panel__body .components-base-control:last-child {
+    margin-bottom: 0;
+}
+
+/* Block Preview Enhancements */
+.services-block-preview .grid {
+    gap: 1rem;
+}
+
+.services-block-preview .bg-white {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.services-block-preview .bg-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Preview */
+@media (max-width: 768px) {
+    .services-block-preview .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .services-block-preview .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1025px) {
+    .services-block-preview .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Block Toolbar Styles */
+.block-editor-block-toolbar .block-editor-block-toolbar__slot {
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    background: white;
+}
+
+/* Loading State */
+.services-block-editor.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.services-block-editor.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #17476a;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+

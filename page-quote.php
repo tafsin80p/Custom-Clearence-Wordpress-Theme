@@ -26,8 +26,10 @@ get_header(); ?>
         <div class="flex-2 bg-white p-8 rounded-xl shadow-lg">
             <h1 class="text-3xl font-extrabold mb-4 text-[#1E293B]">Obtenir un devis</h1>
             <p class="text-lg text-[#64748B] mb-8">Devis détaillé en 24h. Vous pouvez joindre une facture/proforma et votre liste de colisage.</p>
+            
+  <?php echo do_shortcode( '[contact-form-7 id="6c62fd3" title="quote page"]');?>
 
-            <form id="quoteForm" class="space-y-6 text-[#17476a]">
+            <!-- <form id="quoteForm" class="space-y-6 text-[#17476a]">
                 <div class="flex gap-6">
                     <div class="flex-1">
                         <input type="text" name="name" placeholder="Nom / Société" class="w-full px-4 py-3 border-2 border-[#E5E7EB] rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-[#17476a]" required>
@@ -54,7 +56,8 @@ get_header(); ?>
                 </div>
 
                 <button type="submit" class="w-full bg-[#1E293B] text-white px-6 py-4 rounded-lg text-lg font-semibold hover:bg-[#0F172A] transform transition-all duration-300">Envoyer la demande</button>
-            </form>
+            </form> -->
+
         </div>
 
         <!-- Contact Section -->

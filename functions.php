@@ -2,13 +2,13 @@
 // Enqueue stylesheets and scripts
 function custom_clearance_enqueue_assets() {
     // TailwindCSS styles
-    wp_enqueue_style( 'tailwind-output', get_template_directory_uri() . '/src/output.css' );
+    wp_enqueue_style( 'tailwind-output', get_template_directory_uri() .'/src/output.css' );
     // Add header.css
-    wp_enqueue_style( 'header-css', get_template_directory_uri() . '/src/header.css' );
+    wp_enqueue_style( 'header-css', get_template_directory_uri() .'/src/header.css' );
     // Add footer.css
-    wp_enqueue_style( 'footer-css', get_template_directory_uri() . '/src/footer.css' );
+    wp_enqueue_style( 'footer-css', get_template_directory_uri() .'/src/footer.css' );
     // Enqueue the main JavaScript file
-    wp_enqueue_script( 'main-js', get_template_directory_uri() . '/assets/js/ui/main.js', array('jquery'), null, true );
+    wp_enqueue_script( 'main-js', get_template_directory_uri() .'/assets/js/ui/main.js', array('jquery'), null, true );
 
     // Conditional 404 page script
     if ( is_404() ) {
@@ -26,6 +26,11 @@ function custom_clearance_enqueue_assets() {
     if ( is_page_template('page-quote.php') ) {
         wp_enqueue_script( 'page-quote-js', get_template_directory_uri() . '/assets/js/page-quote.js', array(), null, true );
         wp_enqueue_script( 'whatsapp-js', get_template_directory_uri() . '/assets/js/ui/whatsapp.js', array(), null, true );
+    }
+
+    // Conditional Archive Service page assets
+    if ( is_post_type_archive('service') ) {
+        wp_enqueue_script( 'archive-services-js', get_template_directory_uri() . '/assets/js/ui/archive-services.js', array(), null, true );
     }
 
     // It is recommended to host fonts locally for better performance and reliability.
@@ -47,12 +52,32 @@ function custom_clearance_setup() {
     add_theme_support( 'post-thumbnails' ); // Featured images
     add_theme_support( 'menus' ); // Menus support
     add_theme_support( 'custom-logo' ); // Custom Logo
+    
+    // Editor Support
+    add_theme_support( 'editor-styles' ); // Enable editor styles
+    add_theme_support( 'wp-block-styles' ); // Enable block styles
+    add_theme_support( 'align-wide' ); // Enable wide and full alignments
+    
     register_nav_menus( array(
         'primary' => __( 'Primary Menu', 'customsclearance' ),
     ) );
 }
 
 add_action( 'after_setup_theme', 'custom_clearance_setup' );
+
+// Optional: Force Classic Editor for specific post types (uncomment if needed)
+/*
+function custom_clearance_use_classic_editor($use_block_editor, $post) {
+    // Use classic editor for specific post types
+    $classic_editor_types = array('service', 'faq');
+    
+    if (in_array($post->post_type, $classic_editor_types)) {
+        return false; // Use classic editor
+    }
+    return $use_block_editor; // Use default (Gutenberg)
+}
+add_filter('use_block_editor_for_post', 'custom_clearance_use_classic_editor', 10, 2);
+*/
 
 // Theme options
 require_once get_template_directory() . '/inc/header-function.php';
@@ -143,5 +168,30 @@ function custom_clearance_widgets_init() {
 }
 add_action( 'widgets_init', 'custom_clearance_widgets_init' );
 
+
+
+
+// functions.php ফাইলে যোগ করুন
+function load_cf7_assets_on_contact_page() {
+    // নিশ্চিত করুন এটি Contact Page টেমপ্লেট ব্যবহার করা পেজ
+    if ( is_page_template('contact-page.php') || is_page('আপনার_যোগাযোগ_পেজের_ID_বা_slug') ) { // 'আপনার_যোগাযোগ_পেজের_ID_বা_slug' এর জায়গায় সঠিক তথ্য দিন
+        if ( function_exists( 'wpcf7_enqueue_scripts' ) ) {
+            wpcf7_enqueue_scripts();
+        }
+        if ( function_exists( 'wpcf7_enqueue_styles' ) ) {
+            wpcf7_enqueue_styles();
+        }
+    }
+}
+add_action( 'wp_enqueue_scripts', 'load_cf7_assets_on_contact_page' );
+
+
+
 // Theme Options moved to a separate include for better organization
 require_once get_template_directory() . '/inc/theme-options.php';
+
+// Gutenberg Blocks
+require_once get_template_directory() . '/inc/gutenberg-blocks.php';
+
+// Form Handlers
+require_once get_template_directory() . '/inc/form-handlers.php';

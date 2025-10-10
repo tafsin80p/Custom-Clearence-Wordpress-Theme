@@ -13,7 +13,17 @@ get_header();
     <div class="absolute inset-0 bg-black opacity-50"></div>
     <div class="container mx-auto max-w-[1221px] px-4 relative z-10">
         <div class="text-center">
-            <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight">À propos de nous</h1>
+            <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight">                
+                    <?php
+
+        if (isset($options['about_us_hero_title']) && !empty($options['about_us_hero_title'])) {
+            echo esc_html($options['about_us_hero_title']);
+        } else {
+         
+            echo 'Contactez-Nous'; 
+        }
+        ?>
+            </h1>
             <div class="text-lg text-white mt-4">
                 <a href="<?php echo home_url(); ?>" class="hover:underline">Accueil</a> &raquo; <span>À propos</span>
             </div>

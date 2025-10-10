@@ -1,48 +1,110 @@
 <?php
 /**
- * Template Name: Services
- * The template for displaying the services page.
+ * Custom Gutenberg Blocks
  */
 
-get_header();
-?>
+// Enqueue block editor assets
+function custom_clearance_block_editor_assets() {
+    wp_enqueue_script(
+        'custom-clearance-blocks',
+        get_template_directory_uri() . '/assets/js/admin/gutenberg-blocks.js',
+        array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n'),
+        '1.0.0',
+        true
+    );
+    
+    wp_enqueue_style(
+        'custom-clearance-block-editor',
+        get_template_directory_uri() . '/assets/css/admin/block-editor.css',
+        array('wp-edit-blocks'),
+        '1.0.0'
+    );
+}
+add_action('enqueue_block_editor_assets', 'custom_clearance_block_editor_assets');
 
-<!-- Hero Section -->
-<section class="bg-gradient-to-r from-[#0F2033] to-[#1A2B3C] text-white py-20 px-4 text-center relative overflow-hidden"
-    style="background-image: url('https://customsclearance.ma/wp-content/uploads/2015/11/header_bg_6.jpg');  background-position: center; background-repeat: no-repeat; background-size: cover; height: 300px;">
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    <div class="container mx-auto max-w-[1221px] px-4 relative z-10">
-        <div class="text-center">
-            <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight"><?php the_title(); ?></h1>
-            <div class="text-lg text-white mt-4">
-                <a href="<?php echo home_url(); ?>" class="hover:underline">Accueil</a> &raquo; <span>Services</span>
+// Add custom block category
+function custom_clearance_block_categories($categories, $post) {
+    return array_merge(
+        $categories,
+        array(
+            array(
+                'slug' => 'customsclearance',
+                'title' => __('Custom Clearance', 'customsclearance'),
+                'icon' => 'admin-tools',
+            ),
+        )
+    );
+}
+add_filter('block_categories_all', 'custom_clearance_block_categories', 10, 2);
+
+// Register custom blocks
+function custom_clearance_register_blocks() {
+    // Services Block
+    register_block_type('customsclearance/services-block', array(
+        'editor_script' => 'custom-clearance-blocks',
+        'editor_style' => 'custom-clearance-block-editor',
+        'render_callback' => 'custom_clearance_render_services_block',
+        'attributes' => array(
+            'title' => array(
+                'type' => 'string',
+                'default' => 'Découvrez nos services'
+            ),
+            'subtitle' => array(
+                'type' => 'string',
+                'default' => ''
+            ),
+            'postsPerPage' => array(
+                'type' => 'number',
+                'default' => 6
+            ),
+            'showViewAll' => array(
+                'type' => 'boolean',
+                'default' => true
+            ),
+            'backgroundColor' => array(
+                'type' => 'string',
+                'default' => 'bg-gray-50'
+            ),
+            'textColor' => array(
+                'type' => 'string',
+                'default' => 'text-gray-900'
+            )
+        )
+    ));
+}
+add_action('init', 'custom_clearance_register_blocks');
+
+// Render callback for Services Block
+function custom_clearance_render_services_block($attributes) {
+    $title = $attributes['title'] ?? 'Découvrez nos services';
+    $subtitle = $attributes['subtitle'] ?? '';
+    $posts_per_page = $attributes['postsPerPage'] ?? 6;
+    $show_view_all = $attributes['showViewAll'] ?? true;
+    $bg_color = $attributes['backgroundColor'] ?? 'bg-gray-50';
+    $text_color = $attributes['textColor'] ?? 'text-gray-900';
+    
+    ob_start();
+    ?>
+    <div class="services-block-wrapper py-20 px-4 <?php echo esc_attr($bg_color); ?>">
+        <div class="container mx-auto max-w-[1221px] px-4">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold <?php echo esc_attr($text_color); ?> mb-4">
+                    <?php echo esc_html($title); ?>
+                </h2>
+                <?php if (!empty($subtitle)): ?>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                        <?php echo esc_html($subtitle); ?>
+                    </p>
+                <?php endif; ?>
             </div>
-        </div>
-    </div>
-</section>
 
-<main class="py-20 px-4 bg-gray-50" id="main-content">
-    <div class="container mx-auto max-w-[1221px] px-4">
-
-        <!-- Page Content -->
-        <div class="text-center mb-16">
-            <?php
-            if (have_posts()) :
-                while (have_posts()) : the_post();
-                    the_content();
-                endwhile;
-            endif;
-            ?>
-        </div>
-
-        <!-- Services Section (Custom Post Type) -->
-        <div class="text-center">
-            <h2 class="text-3xl font-bold text-[#384050] mb-12">Découvrez nos services</h2>
+            <!-- Services Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <?php
                 $services_query_args = array(
                     'post_type'      => 'service',
-                    'posts_per_page' => 6, // Limit to 6 services on the page
+                    'posts_per_page' => intval($posts_per_page),
                     'post_status'    => 'publish',
                     'orderby'        => 'menu_order',
                     'order'          => 'ASC'
@@ -112,7 +174,7 @@ get_header();
             </div>
             
             <!-- View All Services Link -->
-            <?php if ($services_query->found_posts > 6) : ?>
+            <?php if ($show_view_all && $services_query->found_posts > intval($posts_per_page)) : ?>
                 <div class="mt-8 text-center">
                     <a href="<?php echo get_post_type_archive_link('service'); ?>" class="inline-flex items-center bg-[#17476a] text-white font-bold py-3 px-8 rounded-lg hover:bg-[#0F2033] transition-colors duration-300">
                         Voir tous nos services
@@ -123,21 +185,31 @@ get_header();
                 </div>
             <?php endif; ?>
         </div>
-
-        <!-- CTA Section -->
-        <div class="mt-20 text-center bg-white p-12 rounded-lg shadow-lg" data-aos="fade-up" data-aos-duration="1000">
-            <h2 class="text-3xl font-bold text-[#384050] mb-4">Prêt à simplifier votre dédouanement ?</h2>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
-                Contactez-nous dès aujourd'hui pour une consultation gratuite et découvrez comment nous pouvons vous aider à optimiser vos opérations douanières.
-            </p>
-            <a href="<?php echo esc_url(get_permalink(get_page_by_path('contact'))); ?>" class="bg-[#D9A428] text-white font-bold py-3 px-8 rounded-lg hover:bg-[#C7901A] transition-colors duration-300">
-                Contactez-nous
-            </a>
-        </div>
-
     </div>
-</main>
+    <?php
+    return ob_get_clean();
+}
 
-<?php
-get_footer();
-?>
+// Shortcode for Services Block (fallback)
+function custom_clearance_services_shortcode($atts) {
+    $atts = shortcode_atts(array(
+        'title' => 'Découvrez nos services',
+        'subtitle' => '',
+        'posts_per_page' => 6,
+        'show_view_all' => 'true',
+        'background_color' => 'bg-gray-50',
+        'text_color' => 'text-gray-900'
+    ), $atts);
+
+    $attributes = array(
+        'title' => $atts['title'],
+        'subtitle' => $atts['subtitle'],
+        'postsPerPage' => intval($atts['posts_per_page']),
+        'showViewAll' => $atts['show_view_all'] === 'true',
+        'backgroundColor' => $atts['background_color'],
+        'textColor' => $atts['text_color']
+    );
+
+    return custom_clearance_render_services_block($attributes);
+}
+add_shortcode('services_block', 'custom_clearance_services_shortcode');

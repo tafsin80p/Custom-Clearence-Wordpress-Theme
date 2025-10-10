@@ -12,7 +12,10 @@ get_header(); ?>
     <div class="absolute inset-0 bg-black opacity-50"></div>
     <div class="container mx-auto max-w-[1221px] px-4 relative z-10">
         <div class="text-center">
-            <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight">Contactez-Nous</h1>
+            <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight">
+                 <?php echo isset($options['about_us_hero_title']) ? esc_html($options['about_us_hero_title']) : 'Contactez-Nous'; ?>
+                 
+            </h1>
             <div class="text-lg text-white mt-4">
                 <a href="<?php echo home_url(); ?>" class="hover:underline">Accueil</a> &raquo; <span>Contact</span>
             </div>
@@ -38,31 +41,11 @@ get_header(); ?>
 
             <!-- Right Section - Form -->
             <div class="bg-white p-8 rounded-xl shadow-lg">
-                <form id="contactFormElement" class="space-y-6 text-[#17476a]">
-                    <div>
-                        <label for="name" class="sr-only">Nom / Société</label>
-                        <input type="text" id="name" name="name" placeholder="Nom / Société" class="w-full px-4 py-3 border-2 border-[#E5E7EB] rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6]" required>
-                    </div>
-
-                    <div>
-                        <label for="email" class="sr-only">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Email" class="w-full px-4 py-3 border-2 border-[#E5E7EB] rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6]" required>
-                    </div>
-
-                    <div>
-                        <label for="phone" class="sr-only">Téléphone</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Téléphone" class="w-full px-4 py-3 border-2 border-[#E5E7EB] rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6]" required>
-                    </div>
-
-                    <div>
-                        <label for="message" class="sr-only">Votre message</label>
-                        <textarea id="message" name="message" placeholder="Votre message" rows="4" class="w-full px-4 py-3 border-2 border-[#E5E7EB] rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[#3B82F6]" required></textarea>
-                    </div>
-
-                    <button type="submit" class="w-full bg-[#0F2033] text-white px-6 py-4 rounded-lg text-lg font-semibold hover:bg-[#1A2B3C] transform transition-all duration-300 submit-btn">Envoyer</button>
-                </form>
+                <div class="newform">
+                    <?php echo do_shortcode( '[contact-form-7 id="cc564fa" title="Contact form page"]');?>
+                </div>               
             </div>
-        </div>
+    </div>
     </div>
 </main>
 

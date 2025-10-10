@@ -1,0 +1,149 @@
+
+/* =================contact form page =============== */
+input.wpcf7-form-control.wpcf7-submit.has-spinner.w-full {
+    background: #0F2033;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+}
+input.wpcf7-form-control.wpcf7-submit.has-spinner.w-full:hover {
+    background: #1A2B3C;
+}
+
+.wpcf7-response-output {
+    color: black;
+}
+.wpcf7 form.failed .wpcf7-response-output, .wpcf7 form.aborted .wpcf7-response-output {
+    border-color: #0F2033;
+}
+.wpcf7-form {
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+    width: 100%; 
+}
+   .contact_form-card {
+        background-color: white;
+        border-radius: 12px;
+
+    }
+
+    .contact_form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    /* label {
+      
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    } */
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        color: #17476a;
+        border: 2px solid #E5E7EB;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-family: inherit;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: #9CA3AF;
+    }
+
+    input:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #3B82F6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .contact_form-submit-btn {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: white;
+        background-color: #0F2033;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .contact_form-submit-btn:hover {
+        background-color: #1A2B3C;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(15, 32, 51, 0.3);
+    }
+
+    .contact_form-submit-btn:active {
+        transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 640px) {
+        body {
+            padding: 10px;
+        }
+
+        .contact_form-card {
+            padding: 1.5rem;
+        }
+
+        input,
+        textarea {
+            font-size: 16px; 
+        }
+
+        .contact_form-submit-btn {
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .contact_form-card {
+            padding: 1.25rem;
+        }
+
+        .contact_form-group {
+            margin-bottom: 1.25rem;
+        }
+    }
+
+/* =================quote page =============== */
+input.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required.w-full {
+    border: 2px solid #ddd !important;
+}
+input[text]{
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        color: #17476a;
+        border: 2px solid #E5E7EB;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+
+
+}
+input.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required.w-full {
+    padding: 12px 0px;
+    border: 2px solid #ddd;
+} 
+
