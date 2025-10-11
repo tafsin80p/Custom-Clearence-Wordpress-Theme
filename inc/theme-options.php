@@ -32,143 +32,169 @@ add_action( 'admin_enqueue_scripts', 'custom_clearance_admin_enqueue_scripts' );
 // Render Theme Options Page
 function custom_clearance_theme_options_page() {
     $active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'about_us';
-    $active_sub_tab = isset( $_GET['sub_tab'] ) ? sanitize_text_field( wp_unslash( $_GET['sub_tab'] ) ) : 'hero';
-    $options = get_option( 'custom_clearance_theme_options', array() );
+    $options = wp_parse_args( get_option( 'custom_clearance_theme_options', array() ), custom_clearance_get_default_theme_options() );
     ?>
-    <div class="wrap theme-options-wrap">
-        <h1>Theme Options</h1>
+<div class="wrap theme-options-wrap">
+    <h1>Theme Options</h1>
 
-        <h2 class="nav-tab-wrapper">
-            <a href="?page=custom-clearance-theme-options&tab=about_us" class="nav-tab <?php echo $active_tab === 'about_us' ? 'nav-tab-active' : ''; ?>">About Us</a>
-            <a href="?page=custom-clearance-theme-options&tab=blog" class="nav-tab <?php echo $active_tab === 'blog' ? 'nav-tab-active' : ''; ?>">Blog</a>
-            <a href="?page=custom-clearance-theme-options&tab=cities" class="nav-tab <?php echo $active_tab === 'cities' ? 'nav-tab-active' : ''; ?>">Cities</a>
-            <a href="?page=custom-clearance-theme-options&tab=contact" class="nav-tab <?php echo $active_tab === 'contact' ? 'nav-tab-active' : ''; ?>">Contact</a>
-            <a href="?page=custom-clearance-theme-options&tab=quote" class="nav-tab <?php echo $active_tab === 'quote' ? 'nav-tab-active' : ''; ?>">Quote</a>
-        </h2>
+    <h2 class="nav-tab-wrapper">
+        <a href="?page=custom-clearance-theme-options&tab=about_us"
+            class="nav-tab <?php echo $active_tab === 'about_us' ? 'nav-tab-active' : ''; ?>">About Us</a>
+        <a href="?page=custom-clearance-theme-options&tab=blog"
+            class="nav-tab <?php echo $active_tab === 'blog' ? 'nav-tab-active' : ''; ?>">Blog</a>
+        <a href="?page=custom-clearance-theme-options&tab=cities"
+            class="nav-tab <?php echo $active_tab === 'cities' ? 'nav-tab-active' : ''; ?>">Cities</a>
+        <a href="?page=custom-clearance-theme-options&tab=contact"
+            class="nav-tab <?php echo $active_tab === 'contact' ? 'nav-tab-active' : ''; ?>">Contact</a>
+        <a href="?page=custom-clearance-theme-options&tab=quote"
+            class="nav-tab <?php echo $active_tab === 'quote' ? 'nav-tab-active' : ''; ?>">Quote</a>
+        <a href="?page=custom-clearance-theme-options&tab=services"
+            class="nav-tab <?php echo $active_tab === 'services' ? 'nav-tab-active' : ''; ?>">Services</a>
 
-        <form method="post" action="options.php">
-            <?php settings_fields( 'custom_clearance_theme_options_group' ); ?>
+    </h2>
 
-            <div class="theme-options-content">
-                <?php if ( 'about_us' === $active_tab ) : ?>
-                    <h3 class="nav-tab-wrapper">
-                        <a href="?page=custom-clearance-theme-options&tab=about_us&sub_tab=hero" class="nav-tab <?php echo $active_sub_tab === 'hero' ? 'nav-tab-active' : ''; ?>">Hero</a>
-                        <a href="?page=custom-clearance-theme-options&tab=about_us&sub_tab=introduction" class="nav-tab <?php echo $active_sub_tab === 'introduction' ? 'nav-tab-active' : ''; ?>">Introduction</a>
-                        <a href="?page=custom-clearance-theme-options&tab=about_us&sub_tab=mission" class="nav-tab <?php echo $active_sub_tab === 'mission' ? 'nav-tab-active' : ''; ?>">Mission</a>
-                        <a href="?page=custom-clearance-theme-options&tab=about_us&sub_tab=values" class="nav-tab <?php echo $active_sub_tab === 'values' ? 'nav-tab-active' : ''; ?>">Values</a>
-                        <a href="?page=custom-clearance-theme-options&tab=about_us&sub_tab=faq" class="nav-tab <?php echo $active_sub_tab === 'faq' ? 'nav-tab-active' : ''; ?>">FAQ</a>
-                    </h3>
-                    <?php if ( 'hero' === $active_sub_tab ) : ?>
-                        <div class="theme-options-section">
-                            <div class="theme-options-grid">
-                                <?php 
-                                custom_clearance_render_field('about_us_hero_title', 'Hero Title', $options, 'text', 'The title of the hero section.');
-                                custom_clearance_render_field('about_us_breadcrumb_home', 'Breadcrumb Home', $options, 'text', 'The text for the home link in the breadcrumb.');
-                                custom_clearance_render_field('about_us_breadcrumb_current', 'Breadcrumb Current', $options, 'text', 'The text for the current page in the breadcrumb.');
-                                custom_clearance_render_field('about_us_hero_image', 'Hero Image', $options, 'image', 'The background image for the hero section.');
-                                ?>
-                            </div>
-                        </div>
-                    <?php elseif ( 'introduction' === $active_sub_tab ) : ?>
-                        <div class="theme-options-section">
-                            <div class="theme-options-grid">
-                                <?php 
-                                custom_clearance_render_field('about_us_intro_title', 'Intro Title', $options, 'text', 'The title of the introduction section.');
-                                custom_clearance_render_field('about_us_intro_text_1', 'Intro Paragraph 1', $options, 'textarea', 'The first paragraph of the introduction.');
-                                custom_clearance_render_field('about_us_intro_text_2', 'Intro Paragraph 2', $options, 'textarea', 'The second paragraph of the introduction.');
-                                custom_clearance_render_field('about_us_intro_image', 'Intro Image', $options, 'image', 'The image for the introduction section.');
-                                ?>
-                            </div>
-                        </div>
-                    <?php elseif ( 'mission' === $active_sub_tab ) : ?>
-                        <div class="theme-options-section">
-                            <div class="theme-options-grid">
-                                <?php 
-                                custom_clearance_render_field('about_us_mission_title', 'Mission Title', $options, 'text', 'The title of the mission section.');
-                                custom_clearance_render_field('about_us_mission_text', 'Mission Text', $options, 'textarea', 'The text of the mission section.');
-                                ?>
-                            </div>
-                        </div>
-                    <?php elseif ( 'values' === $active_sub_tab ) : ?>
-                        <div class="theme-options-section">
-                            <div class="theme-options-grid">
-                                <?php 
-                                custom_clearance_render_field('about_us_values_title', 'Values Title', $options, 'text', 'The title of the values section.');
-                                custom_clearance_render_field('about_us_value_1_title', 'Value 1 Title', $options, 'text', 'The title of the first value.');
-                                custom_clearance_render_field('about_us_value_1_text', 'Value 1 Text', $options, 'textarea', 'The text of the first value.');
-                                custom_clearance_render_field('about_us_value_2_title', 'Value 2 Title', $options, 'text', 'The title of the second value.');
-                                custom_clearance_render_field('about_us_value_2_text', 'Value 2 Text', $options, 'textarea', 'The text of the second value.');
-                                custom_clearance_render_field('about_us_value_3_title', 'Value 3 Title', $options, 'text', 'The title of the third value.');
-                                custom_clearance_render_field('about_us_value_3_text', 'Value 3 Text', $options, 'textarea', 'The text of the third value.');
-                                ?>
-                            </div>
-                        </div>
-                    <?php elseif ( 'faq' === $active_sub_tab ) : ?>
-                        <div class="theme-options-section">
-                            <div class="theme-options-grid">
-                                <?php 
-                                custom_clearance_render_field('about_us_faq_title', 'FAQ Title', $options, 'text', 'The title of the FAQ section.');
-                                ?>
-                                <div class="theme-option-card repeater-card">
-                                    <div class="theme-option-card-header">
-                                        <h3>FAQ Items</h3>
-                                    </div>
-                                    <div class="theme-option-card-body">
-                                        <div class="repeater">
-                                            <div class="repeater-items">
-                                                <?php
-                                                $faq_items = isset( $options['about_us_faq_items'] ) ? json_decode( $options['about_us_faq_items'], true ) : array();
-                                                if ( ! empty( $faq_items ) ) {
-                                                    foreach ( $faq_items as $item ) {
-                                                        ?>
-                                                        <div class="repeater-item">
-                                                            <label>Question</label>
-                                                            <input type="text" data-field="q" value="<?php echo esc_attr( $item['q'] ); ?>" class="widefat" />
-                                                            <label>Answer</label>
-                                                            <textarea data-field="a" class="widefat"><?php echo esc_textarea( $item['a'] ); ?></textarea>
-                                                            <a href="#" class="remove-repeater-item">Remove</a>
-                                                        </div>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </div>
-                                            <div class="repeater-item-template" style="display:none;">
-                                                <div class="repeater-item">
-                                                    <label>Question</label>
-                                                    <input type="text" data-field="q" value="" class="widefat" />
-                                                    <label>Answer</label>
-                                                    <textarea data-field="a" class="widefat"></textarea>
-                                                    <a href="#" class="remove-repeater-item">Remove</a>
-                                                </div>
-                                            </div>
-                                            <a href="#" class="button-secondary add-repeater-item">Add FAQ</a>
-                                            <input type="hidden" name="custom_clearance_theme_options[about_us_faq_items]" class="repeater-val" value="<?php echo esc_attr( isset( $options['about_us_faq_items'] ) ? $options['about_us_faq_items'] : '' ); ?>" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                <?php elseif ( 'blog' === $active_tab ) : ?>
-                    <h2>Blog Page Options</h2>
-                    <p>Options for the blog page will go here.</p>
-                <?php elseif ( 'cities' === $active_tab ) : ?>
-                    <h2>Cities Page Options</h2>
-                    <p>Options for the cities page will go here.</p>
-                <?php elseif ( 'contact' === $active_tab ) : ?>
-                    <h2>Contact Page Options</h2>
-                    <p>Options for the contact page will go here.</p>
-                <?php elseif ( 'quote' === $active_tab ) : ?>
-                    <h2>Quote Page Options</h2>
-                    <p>Options for the quote page will go here.</p>
-                <?php endif; ?>
+    <form method="post" action="options.php">
+        <?php settings_fields( 'custom_clearance_theme_options_group' ); ?>
+
+        <div class="theme-options-content">
+            <?php if ( 'about_us' === $active_tab ) : ?>
+            <h1>About Us Page Options</h1>
+            <div class="theme-options-section">
+                <h2>Hero Section Settings</h2>
+                <div class="theme-options-grid">
+                    <?php 
+                                custom_clearance_render_field('about_us_hero_title', 'Hero Title', $options, 'text', 'The title of the hero section for the about us page.');
+                                custom_clearance_render_field('about_us_breadcrumb_home', 'Breadcrumb Home', $options, 'text', 'Breadcrumb text for the home link.');
+                                custom_clearance_render_field('about_us_breadcrumb_current', 'Breadcrumb Current', $options, 'text', 'Breadcrumb text for the current page.');
+                                custom_clearance_render_field('about_us_hero_image', 'Hero Image', $options, 'image', 'Upload the background image for the hero section on the about us page.');
+                            ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <?php if ( 'blog' === $active_tab ) : ?>
+            <h1>Blog Page Options</h1>
+            <div class="theme-options-section">
+                <h2>Hero Section Settings</h2>
+                <div class="theme-options-grid">
+                    <?php 
+                                custom_clearance_render_field('blog_hero_title', 'Hero Title', $options, 'text', 'The title of the hero section for the blog page.');
+                                custom_clearance_render_field('blog_breadcrumb_home', 'Breadcrumb Home', $options, 'text', 'Breadcrumb text for the home link.');
+                                custom_clearance_render_field('blog_breadcrumb_current', 'Breadcrumb Current', $options, 'text', 'Breadcrumb text for the current page.');
+                                custom_clearance_render_field('blog_hero_image', 'Hero Image', $options, 'image', 'Upload the background image for the hero section on the blog page.');
+                            ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <?php if ( 'cities' === $active_tab ) : ?>
+            <h1>Cities Page Options</h1>
+            <div class="theme-options-section">
+                <h2>Hero Section Settings</h2>
+                <div class="theme-options-grid">
+                    <?php 
+                                custom_clearance_render_field('cities_hero_title', 'Hero Title', $options, 'text', 'The title of the hero section for cities page.');
+                                custom_clearance_render_field('cities_breadcrumb_home', 'Breadcrumb Home', $options, 'text', 'Breadcrumb text for the home link.');
+                                custom_clearance_render_field('cities_breadcrumb_current', 'Breadcrumb Current', $options, 'text', 'Breadcrumb text for the current page.');
+                                custom_clearance_render_field('cities_hero_image', 'Hero Image', $options, 'image', 'Upload the background image for the hero section on the cities page.');
+                            ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <?php if ( 'contact' === $active_tab ) : ?>
+            <h1>Contact Page Options</h1>
+            <div class="theme-options-section">
+                <h2>Hero Section Settings</h2>
+                <div class="theme-options-grid">
+                    <?php 
+                                custom_clearance_render_field('contact_hero_title', 'Hero Title', $options, 'text', 'The title of the hero section for the contact page.');
+                                custom_clearance_render_field('contact_breadcrumb_home', 'Breadcrumb Home', $options, 'text', 'Breadcrumb text for the home link.');
+                                custom_clearance_render_field('contact_breadcrumb_current', 'Breadcrumb Current', $options, 'text', 'Breadcrumb text for the current page.');
+                                custom_clearance_render_field('contact_hero_image', 'Hero Image', $options, 'image', 'Upload the background image for the hero section on the contact page.');
+                            ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <?php if ( 'quote' === $active_tab ) : ?>
+            <h1>Quote Page Options</h1>
+            <div class="theme-options-section">
+                <h2>Hero Section Settings</h2>
+                <div class="theme-options-grid">
+                    <?php 
+                                custom_clearance_render_field('quote_hero_title', 'Hero Title', $options, 'text', 'The title of the hero section for the quote page.');
+                                custom_clearance_render_field('quote_breadcrumb_home', 'Breadcrumb Home', $options, 'text', 'Breadcrumb text for the home link.');
+                                custom_clearance_render_field('quote_breadcrumb_current', 'Breadcrumb Current', $options, 'text', 'Breadcrumb text for the current page.');
+                                custom_clearance_render_field('quote_hero_image', 'Hero Image', $options, 'image', 'Upload the background image for the hero section on the quote page.');
+                            ?>
+                </div>
+            </div>
+            <?php endif; ?>
+            <?php if ( 'services' === $active_tab ) : ?>
+            <h1>Services Page Options</h1>
+            <div class="theme-options-section">
+                <h2>Hero Section Settings</h2>
+                <div class="theme-options-grid">
+                    <?php 
+                // Fetch the current options from the theme options
+                $options = get_option('custom_clearance_theme_options');
+
+                // Render dynamic fields for Hero Section
+                custom_clearance_render_field('services_hero_title', 'Hero Title', $options, 'text', 'The title of the hero section for the services page.');
+                custom_clearance_render_field('services_breadcrumb_home', 'Breadcrumb Home', $options, 'text', 'Breadcrumb text for the home link.');
+                custom_clearance_render_field('services_breadcrumb_current', 'Breadcrumb Current', $options, 'text', 'Breadcrumb text for the current page.');
+                custom_clearance_render_field('services_hero_image', 'Hero Image', $options, 'image', 'Upload the background image for the hero section on the services page.');
+                custom_clearance_render_field('services_hero_subtitle', 'Hero Subtitle', $options, 'text', 'Découvrez notre gamme complète de services de dédouanement et de transit. Des solutions personnalisées pour tous vos besoins d\'import/export.');
+
+                // Add dynamic stats fields
+                custom_clearance_render_field('services_service_count', 'Services Available', $options, 'text', 'Enter the number of available services.');
+                custom_clearance_render_field('services_response_time', 'Response Time', $options, 'text', 'Enter the average response time (e.g., 24h).');
+                custom_clearance_render_field('services_satisfaction', 'Customer Satisfaction', $options, 'text', 'Enter the customer satisfaction percentage (e.g., 100%).');
+            ?>
+                </div>
             </div>
 
-            <?php submit_button(); ?>
-        </form>
-    </div>
-    <?php
+            <div class="theme-options-section">
+                <h2>CTA Section Settings</h2>
+                <div class="theme-options-grid">
+                    <?php
+                    custom_clearance_render_field('services_cta_small_title_icon', 'CTA Small Title Icon', $options, 'text', 'Font Awesome icon for the small title (e.g., fas fa-star).');
+                    custom_clearance_render_field('services_cta_small_title', 'CTA Small Title', $options, 'text', 'The small title for the CTA section.');
+                    custom_clearance_render_field('services_cta_main_title', 'CTA Main Title', $options, 'text', 'The main title for the CTA section.');
+                    custom_clearance_render_field('services_cta_subtitle', 'CTA Subtitle', $options, 'textarea', 'The subtitle for the CTA section.');
+                    custom_clearance_render_field('services_cta_contact_button_text', 'Contact Button Text', $options, 'text', 'Text for the contact button.');
+                    custom_clearance_render_field('services_cta_contact_button_icon', 'Contact Button Icon', $options, 'text', 'Font Awesome icon for the contact button.');
+                    custom_clearance_render_field('services_cta_quote_button_text', 'Quote Button Text', $options, 'text', 'Text for the quote button.');
+                    custom_clearance_render_field('services_cta_quote_button_icon', 'Quote Button Icon', $options, 'text', 'Font Awesome icon for the quote button.');
+                    ?>
+                </div>
+            </div>
+
+            <div class="theme-options-section">
+                <h2>Trust Indicators Settings</h2>
+                <div class="theme-options-grid">
+                    <?php
+                    custom_clearance_render_field('services_trust_indicator_1_icon', 'Trust Indicator 1 Icon', $options, 'text', 'Font Awesome icon for the first trust indicator.');
+                    custom_clearance_render_field('services_trust_indicator_1_title', 'Trust Indicator 1 Title', $options, 'text', 'Title for the first trust indicator.');
+                    custom_clearance_render_field('services_trust_indicator_1_text', 'Trust Indicator 1 Text', $options, 'text', 'Text for the first trust indicator.');
+                    
+                    custom_clearance_render_field('services_trust_indicator_2_icon', 'Trust Indicator 2 Icon', $options, 'text', 'Font Awesome icon for the second trust indicator.');
+                    custom_clearance_render_field('services_trust_indicator_2_title', 'Trust Indicator 2 Title', $options, 'text', 'Title for the second trust indicator.');
+                    custom_clearance_render_field('services_trust_indicator_2_text', 'Trust Indicator 2 Text', $options, 'text', 'Text for the second trust indicator.');
+
+                    custom_clearance_render_field('services_trust_indicator_3_icon', 'Trust Indicator 3 Icon', $options, 'text', 'Font Awesome icon for the third trust indicator.');
+                    custom_clearance_render_field('services_trust_indicator_3_title', 'Trust Indicator 3 Title', $options, 'text', 'Title for the third trust indicator.');
+                    custom_clearance_render_field('services_trust_indicator_3_text', 'Trust Indicator 3 Text', $options, 'text', 'Text for the third trust indicator.');
+                    ?>
+                </div>
+            </div>
+            <?php endif; ?>
+        </div>
+        <?php submit_button(); ?>
+    </form>
+</div>
+<?php
 }
 
 function custom_clearance_get_default_theme_options() {
@@ -176,51 +202,83 @@ function custom_clearance_get_default_theme_options() {
         'about_us_hero_title' => 'À propos de nous',
         'about_us_breadcrumb_home' => 'Accueil',
         'about_us_breadcrumb_current' => 'À propos',
-        'about_us_hero_image' => 'https://customsclearance.ma/wp-content/uploads/2015/11/header_bg_6.jpg',
-        'about_us_intro_title' => 'CustomsClearance.ma',
-        'about_us_intro_text_1' => 'CustomsClearance.ma accompagne les importateurs et exportateurs au Maroc : classement tarifaire HS, PortNet/BADR, autorisations (ONSSA/ANRT/IMANOR), ATPA/AT, et optimisation fiscale. Notre engagement : fiabilité, transparence et rapidité.',
-        'about_us_intro_text_2' => 'Nous sommes dédiés à simplifier vos opérations douanières et à garantir la conformité de vos marchandises, vous permettant ainsi de vous concentrer sur le développement de votre activité.',
-        'about_us_intro_image' => 'https://hamzaelbouihi.svaomega.com/wp-content/uploads/2025/10/ChatGPT-Image-Oct-6-2025-02_23_15-PM.png',
-        'about_us_mission_title' => 'Notre Mission',
-        'about_us_mission_text' => 'Notre mission est de fournir des solutions de dédouanement innovantes et efficaces, adaptées aux besoins spécifiques de chaque client. Nous nous engageons à offrir un service exceptionnel, basé sur l\'expertise, l\'intégrité et une compréhension approfondie des réglementations douanières marocaines et internationales.',
-        'about_us_values_title' => 'Nos Valeurs',
-        'about_us_value_1_title' => 'Fiabilité',
-        'about_us_value_1_text' => 'Nous assurons des services douaniers précis et conformes, minimisant les risques et les retards.',
-        'about_us_value_2_title' => 'Transparence',
-        'about_us_value_2_text' => 'Une communication claire et des processus ouverts pour une confiance mutuelle.',
-        'about_us_value_3_title' => 'Rapidité',
-        'about_us_value_3_text' => 'Des procédures optimisées pour un dédouanement efficace et rapide de vos marchandises.',
-        'about_us_faq_title' => 'Questions Fréquentes',
-        'blog_title' => 'Blog',
-        'cities_title' => 'Cities',
-        'contact_title' => 'Contact',
-        'quote_title' => 'Quote',
+        'about_us_hero_image' => '',
+
+        'blog_hero_title' => 'Blog',
+        'blog_breadcrumb_home' => 'Accueil',
+        'blog_breadcrumb_current' => 'Blog',
+        'blog_hero_image' => '',
+
+        'cities_hero_title' => 'Villes',
+        'cities_breadcrumb_home' => 'Accueil',
+        'cities_breadcrumb_current' => 'Villes',
+        'cities_hero_image' => '',
+
+        'contact_hero_title' => 'Contactez-Nous',
+        'contact_breadcrumb_home' => 'Accueil',
+        'contact_breadcrumb_current' => 'Contact',
+        'contact_hero_image' => '',
+
+        'quote_hero_title' => 'Demander un devis',
+        'quote_breadcrumb_home' => 'Accueil',
+        'quote_breadcrumb_current' => 'Devis',
+        'quote_hero_image' => '',
+
+        'services_hero_title' => 'Nos Services',
+        'services_breadcrumb_home' => 'Accueil',
+        'services_breadcrumb_current' => 'Services',
+        'services_hero_image' => '',
+        'services_hero_subtitle' => 'Découvrez notre gamme complète de services de dédouanement et de transit. Des solutions personnalisées pour tous vos besoins d\'import/export.',
+        'services_service_count' => '15+',
+        'services_response_time' => '24h',
+        'services_satisfaction' => '100%',
+
+        'services_cta_small_title_icon' => 'fas fa-star',
+        'services_cta_small_title' => 'Consultation gratuite',
+        'services_cta_main_title' => 'Prêt à simplifier votre dédouanement ?',
+        'services_cta_subtitle' => 'Contactez-nous dès aujourd\'hui pour une consultation gratuite et découvrez comment nous pouvons vous aider à optimiser vos opérations douanières avec nos solutions expertes.',
+        'services_cta_contact_button_text' => 'Contactez-nous',
+        'services_cta_contact_button_icon' => 'fas fa-phone',
+        'services_cta_quote_button_text' => 'Demander un devis',
+        'services_cta_quote_button_icon' => 'fas fa-calculator',
+
+        'services_trust_indicator_1_icon' => 'fas fa-clock',
+        'services_trust_indicator_1_title' => 'Réponse 24h',
+        'services_trust_indicator_1_text' => 'Réponse garantie sous 24h',
+        'services_trust_indicator_2_icon' => 'fas fa-shield-alt',
+        'services_trust_indicator_2_title' => '100% Sécurisé',
+        'services_trust_indicator_2_text' => 'Protection totale de vos données',
+        'services_trust_indicator_3_icon' => 'fas fa-users',
+        'services_trust_indicator_3_title' => 'Expert dédié',
+        'services_trust_indicator_3_text' => 'Accompagnement personnalisé',
     );
 }
 
 function custom_clearance_render_field($id, $label, $options, $type = 'text', $description = '') {
-    $defaults = custom_clearance_get_default_theme_options();
-    $value = isset( $options[ $id ] ) ? $options[ $id ] : $defaults[ $id ];
+    $value = $options[ $id ];
     ?>
-    <div class="theme-option-card">
-        <div class="theme-option-card-header">
-            <h3><?php echo esc_html( $label ); ?></h3>
-        </div>
-        <div class="theme-option-card-body">
-            <?php if ( $type === 'image' ) : ?>
-                <input type="text" name="custom_clearance_theme_options[<?php echo esc_attr( $id ); ?>]" value="<?php echo esc_attr( $value ); ?>" class="regular-text" />
-                <button class="button-secondary upload_image_button">Upload Image</button>
-            <?php elseif ( $type === 'textarea' ) : ?>
-                <textarea name="custom_clearance_theme_options[<?php echo esc_attr( $id ); ?>]" rows="6" class="large-text code"><?php echo esc_textarea( $value ); ?></textarea>
-            <?php else : ?>
-                <input type="text" name="custom_clearance_theme_options[<?php echo esc_attr( $id ); ?>]" value="<?php echo esc_attr( $value ); ?>" class="regular-text" />
-            <?php endif; ?>
-            <?php if ( ! empty( $description ) ) : ?>
-                <p class="description"><?php echo esc_html( $description ); ?></p>
-            <?php endif; ?>
-        </div>
+<div class="theme-option-card">
+    <div class="theme-option-card-header">
+        <h3><?php echo esc_html( $label ); ?></h3>
     </div>
-    <?php
+    <div class="theme-option-card-body">
+        <?php if ( $type === 'image' ) : ?>
+        <input type="text" name="custom_clearance_theme_options[<?php echo esc_attr( $id ); ?>]"
+            value="<?php echo esc_attr( $value ); ?>" class="regular-text" />
+        <button class="button-secondary upload_image_button">Upload Image</button>
+        <?php elseif ( $type === 'textarea' ) : ?>
+        <textarea name="custom_clearance_theme_options[<?php echo esc_attr( $id ); ?>]" rows="6"
+            class="large-text code"><?php echo esc_textarea( $value ); ?></textarea>
+        <?php else : ?>
+        <input type="text" name="custom_clearance_theme_options[<?php echo esc_attr( $id ); ?>]"
+            value="<?php echo esc_attr( $value ); ?>" class="regular-text" />
+        <?php endif; ?>
+        <?php if ( ! empty( $description ) ) : ?>
+        <p class="description"><?php echo esc_html( $description ); ?></p>
+        <?php endif; ?>
+    </div>
+</div>
+<?php
 }
 
 // Register Theme Options
@@ -235,17 +293,23 @@ add_action( 'admin_init', 'custom_clearance_register_theme_settings' );
 
 // Sanitize callback for theme options
 function custom_clearance_theme_options_sanitize( $input ) {
-    $output = array();
-    if ( is_array( $input ) ) {
+    // Start with the existing options
+    $output = get_option( 'custom_clearance_theme_options', array() );
+
+    // Loop through the new input and update the existing options
+    if ( $input && is_array( $input ) ) {
         foreach ( $input as $key => $value ) {
-            if ( $key === 'about_us_faq_items' ) {
-                $output[ $key ] = wp_kses_post( $value );
-            } elseif ( strpos( $key, 'image' ) !== false || strpos( $key, 'url' ) !== false ) {
+            // Sanitize the value based on the key
+            if ( strpos( $key, 'image' ) !== false ) {
                 $output[ $key ] = esc_url_raw( $value );
+            } elseif ( strpos( $key, '_title' ) !== false || strpos( $key, '_breadcrumb_' ) !== false ) {
+                $output[ $key ] = sanitize_text_field( $value );
             } else {
+                // For any other fields, you might want a default sanitization
                 $output[ $key ] = wp_kses_post( $value );
             }
         }
     }
+
     return $output;
 }

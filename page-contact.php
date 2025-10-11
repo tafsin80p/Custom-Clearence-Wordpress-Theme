@@ -6,18 +6,28 @@
 get_header(); ?>
 
 <!-- Hero Section -->
+<?php
+// Fetch the options from the theme options page
+$options = get_option('custom_clearance_theme_options');
+
+// Get the values for Hero Section
+$hero_image = isset($options['contact_hero_image']) ? $options['contact_hero_image'] : ''; 
+$hero_title = isset($options['contact_hero_title']) ? $options['contact_hero_title'] : 'Contactez-Nous'; 
+$breadcrumb_home = isset($options['contact_breadcrumb_home']) ? $options['contact_breadcrumb_home'] : 'Accueil'; 
+$breadcrumb_current = isset($options['contact_breadcrumb_current']) ? $options['contact_breadcrumb_current'] : 'Contact';
+?>
 
 <section class="bg-gradient-to-r from-[#0F2033] to-[#1A2B3C] text-white py-20 px-4 text-center relative overflow-hidden"
-    style="background-image: url('https://customsclearance.ma/wp-content/uploads/2015/11/header_bg_5.jpg');  background-position: center; background-repeat: no-repeat; background-size: cover; height: 300px;">
+    style="background-image: url('<?php echo esc_url($hero_image); ?>'); background-position: center; background-repeat: no-repeat; background-size: cover; height: 300px;">
     <div class="absolute inset-0 bg-black opacity-50"></div>
     <div class="container mx-auto max-w-[1221px] px-4 relative z-10">
         <div class="text-center">
             <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight">
-                 <?php echo isset($options['about_us_hero_title']) ? esc_html($options['about_us_hero_title']) : 'Contactez-Nous'; ?>
-                 
+                <?php echo esc_html($hero_title); ?>
             </h1>
             <div class="text-lg text-white mt-4">
-                <a href="<?php echo home_url(); ?>" class="hover:underline">Accueil</a> &raquo; <span>Contact</span>
+                <a href="<?php echo home_url(); ?>" class="hover:underline"><?php echo esc_html($breadcrumb_home); ?></a> &raquo; 
+                <span><?php echo esc_html($breadcrumb_current); ?></span>
             </div>
         </div>
     </div>

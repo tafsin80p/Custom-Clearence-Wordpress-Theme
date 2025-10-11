@@ -88,10 +88,11 @@ require_once get_template_directory() . '/inc/elementor-widgets.php';
 require_once get_template_directory() . '/inc/home-page-function.php';
 
 // Footer options
-// require_once get_template_directory() . '/inc/footer-options.php';
+require_once get_template_directory() . '/inc/footer-options.php';
 
 // City Post Type
 require_once get_template_directory() . '/inc/city-post-type.php';
+// Obsolete file include removed
 
 // Service Post Type
 require_once get_template_directory() . '/inc/service-post-type.php';
@@ -168,13 +169,11 @@ function custom_clearance_widgets_init() {
 }
 add_action( 'widgets_init', 'custom_clearance_widgets_init' );
 
-
-
-
-// functions.php ফাইলে যোগ করুন
 function load_cf7_assets_on_contact_page() {
-    // নিশ্চিত করুন এটি Contact Page টেমপ্লেট ব্যবহার করা পেজ
-    if ( is_page_template('contact-page.php') || is_page('আপনার_যোগাযোগ_পেজের_ID_বা_slug') ) { // 'আপনার_যোগাযোগ_পেজের_ID_বা_slug' এর জায়গায় সঠিক তথ্য দিন
+    
+    if ( is_page_template('contact-page.php') || is_page('আপনার_যোগাযোগ_পেজের_ID_বা_slug') ) { // Replace with your contact page ID or slug
+         // Load Contact Form 7 scripts and styles
+         // Ensure Contact Form 7 functions exist before calling them
         if ( function_exists( 'wpcf7_enqueue_scripts' ) ) {
             wpcf7_enqueue_scripts();
         }
@@ -186,6 +185,46 @@ function load_cf7_assets_on_contact_page() {
 add_action( 'wp_enqueue_scripts', 'load_cf7_assets_on_contact_page' );
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Get Hero Section Data
+ *
+ * Retrieves the hero section data for a specific page type from the theme options.
+ *
+ * @param string $page_type The prefix for the theme option (e.g., 'about_us', 'blog').
+ * @return array An array containing the hero image, title, and breadcrumb data.
+ */
+function get_hero_section_data($page_type) {
+    // First, get the default options from the theme-options.php file
+    $defaults = custom_clearance_get_default_theme_options();
+
+    // Then, get the saved options from the database
+    $saved_options = get_option('custom_clearance_theme_options', array());
+
+    // Merge the saved options with the defaults to ensure all keys are set
+    $options = wp_parse_args($saved_options, $defaults);
+
+    // Prepare the data array, dynamically getting data based on the page type
+    $hero_data = array(
+        'hero_image'         => isset($options[$page_type . '_hero_image']) ? $options[$page_type . '_hero_image'] : '',
+        'hero_title'         => isset($options[$page_type . '_hero_title']) ? $options[$page_type . '_hero_title'] : '',
+        'breadcrumb_home'    => isset($options[$page_type . '_breadcrumb_home']) ? $options[$page_type . '_breadcrumb_home'] : '',
+        'breadcrumb_current' => isset($options[$page_type . '_breadcrumb_current']) ? $options[$page_type . '_breadcrumb_current'] : '',
+    );
+
+    return $hero_data;
+}
 
 // Theme Options moved to a separate include for better organization
 require_once get_template_directory() . '/inc/theme-options.php';

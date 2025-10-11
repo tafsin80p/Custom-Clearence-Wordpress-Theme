@@ -32,34 +32,31 @@ input.wpcf7-form-control.wpcf7-submit.has-spinner.w-full:hover {
         margin-bottom: 1.5rem;
     }
 
-    /* label {
-      
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border-width: 0;
-    } */
+input,
+textarea,
+input[type="tel"],
+input[type="email"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: #17476a;
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
 
-    input,
-    textarea {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
-        color: #17476a;
-        border: 2px solid #E5E7EB;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        font-family: inherit;
-    }
+input:focus,
+textarea:focus {
+    border-color: #3B82F6; /* Tailwind's blue-500 */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
 
     input::placeholder,
     textarea::placeholder {
         color: #9CA3AF;
+
     }
 
     input:focus,
@@ -126,24 +123,4 @@ input.wpcf7-form-control.wpcf7-submit.has-spinner.w-full:hover {
             margin-bottom: 1.25rem;
         }
     }
-
-/* =================quote page =============== */
-input.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required.w-full {
-    border: 2px solid #ddd !important;
-}
-input[text]{
-        width: 100%;
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
-        color: #17476a;
-        border: 2px solid #E5E7EB;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-
-
-}
-input.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required.w-full {
-    padding: 12px 0px;
-    border: 2px solid #ddd;
-} 
 

@@ -42,7 +42,7 @@ $button_font_size = get_theme_mod( 'button_font_size', '16px' );
                                 wp_nav_menu( array(
                                     'theme_location' => 'primary',
                                     'container'      => false,
-                                    'menu_class'     => 'flex space-x-6', // these classes will be added to the <ul>
+                                    'menu_class'     => 'flex space-x-2', // these classes will be added to the <ul>
                                     'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
                                 ) );
                             ?>

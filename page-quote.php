@@ -5,19 +5,35 @@
 
 get_header(); ?>
 
-<!-- Hero Section -->
+<!-- Dynamic Hero Section -->
+<?php
+// Fetch the options from the theme options page
+$options = get_option('custom_clearance_theme_options');
+
+// Get the values for Hero Section
+$hero_image = isset($options['quote_hero_image']) ? $options['quote_hero_image'] : ''; 
+$hero_title = isset($options['quote_hero_title']) ? $options['quote_hero_title'] : 'Obtenir un Devis Gratuit'; 
+$breadcrumb_home = isset($options['quote_breadcrumb_home']) ? $options['quote_breadcrumb_home'] : 'Accueil'; 
+$breadcrumb_current = isset($options['quote_breadcrumb_current']) ? $options['quote_breadcrumb_current'] : 'Quote';
+?>
+
 <section class="bg-gradient-to-r from-[#0F2033] to-[#1A2B3C] text-white py-20 px-4 text-center relative overflow-hidden"
-    style="background-image: url('https://customsclearance.ma/wp-content/uploads/revslider/slider_2.jpg');  background-position: center; background-repeat: no-repeat; background-size: cover; height: 300px;">
+    style="background-image: url('<?php echo esc_url($hero_image); ?>'); background-position: center; background-repeat: no-repeat; background-size: cover; height: 300px;">
     <div class="absolute inset-0 bg-black opacity-50"></div>
     <div class="container mx-auto max-w-[1221px] px-4 relative z-10">
         <div class="text-center">
-            <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight">Obtenir un Devis Gratuit</h1>
+            <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight">
+                <?php echo esc_html($hero_title); ?>
+            </h1>
             <div class="text-lg text-white mt-4">
-                <a href="<?php echo home_url(); ?>" class="hover:underline">Accueil</a> &raquo; <span>Quote</span>
+                <a href="<?php echo home_url(); ?>" class="hover:underline"><?php echo esc_html($breadcrumb_home); ?></a> &raquo; 
+                <span><?php echo esc_html($breadcrumb_current); ?></span>
             </div>
         </div>
     </div>
 </section>
+
+
 
 <!-- Main Content -->
 <main class="py-20 px-4 bg-[#f8fafc]" id="main-content">
@@ -27,9 +43,9 @@ get_header(); ?>
             <h1 class="text-3xl font-extrabold mb-4 text-[#1E293B]">Obtenir un devis</h1>
             <p class="text-lg text-[#64748B] mb-8">Devis détaillé en 24h. Vous pouvez joindre une facture/proforma et votre liste de colisage.</p>
             
-  <?php echo do_shortcode( '[contact-form-7 id="6c62fd3" title="quote page"]');?>
+  <!-- <?php echo do_shortcode( '[contact-form-7 id="6c62fd3" title="quote page"]');?> -->
 
-            <!-- <form id="quoteForm" class="space-y-6 text-[#17476a]">
+            <form id="quoteForm" class="space-y-6 text-[#17476a]">
                 <div class="flex gap-6">
                     <div class="flex-1">
                         <input type="text" name="name" placeholder="Nom / Société" class="w-full px-4 py-3 border-2 border-[#E5E7EB] rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-[#17476a]" required>
@@ -56,7 +72,7 @@ get_header(); ?>
                 </div>
 
                 <button type="submit" class="w-full bg-[#1E293B] text-white px-6 py-4 rounded-lg text-lg font-semibold hover:bg-[#0F172A] transform transition-all duration-300">Envoyer la demande</button>
-            </form> -->
+            </form>
 
         </div>
 

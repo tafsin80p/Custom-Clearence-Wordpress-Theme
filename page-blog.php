@@ -7,15 +7,28 @@ get_header();
 ?>
 
 <!-- Static Blog Hero -->
-<section class="blog-hero bg-cover bg-center text-white py-20 relative overflow-hidden" style="background-image: url('https://customsclearance.ma/wp-content/uploads/revslider/slider_3.jpg');">
+<?php
+// Fetch the options from the theme options page
+$options = get_option('custom_clearance_theme_options');
+
+// Get the values for Hero Section
+$hero_image = isset($options['blog_hero_image']) ? $options['blog_hero_image'] : ''; 
+$hero_title = isset($options['blog_hero_title']) ? $options['blog_hero_title'] : 'Ressources & Blog'; 
+$breadcrumb_home = isset($options['blog_breadcrumb_home']) ? $options['blog_breadcrumb_home'] : 'Accueil'; 
+$breadcrumb_current = isset($options['blog_breadcrumb_current']) ? $options['blog_breadcrumb_current'] : 'Blog';
+?>
+
+<section class="blog-hero bg-cover bg-center text-white py-20 relative overflow-hidden" style="background-image: url('<?php echo esc_url($hero_image); ?>');">
     <div class="absolute inset-0 bg-black/50" aria-hidden="true"></div>
     <div class="container mx-auto max-w-[1221px] px-4 relative z-10 text-center">
-        <h1 class="text-4xl lg:text-5xl font-bold mb-4" data-aos="fade-up" data-aos-duration="1000">Ressources & Blog</h1>
+        <h1 class="text-4xl lg:text-5xl font-bold mb-4" data-aos="fade-up" data-aos-duration="1000">
+            <?php echo esc_html($hero_title); ?>
+        </h1>
         <p class="text-gray-200 mb-4">Guides pratiques sur l'import, l'export et la conformité au Maroc.</p>
         <nav class="text-sm" aria-label="Breadcrumb">
-            <a href="/" class="hover:underline">Accueil</a>
+            <a href="/" class="hover:underline"><?php echo esc_html($breadcrumb_home); ?></a>
             &nbsp;&raquo;&nbsp;
-            <span aria-current="page">Blog</span>
+            <span aria-current="page"><?php echo esc_html($breadcrumb_current); ?></span>
         </nav>
     </div>
 </section>

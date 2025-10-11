@@ -5,31 +5,20 @@
  */
 
 get_header();
+
+// Get hero section data
+$hero_data = get_hero_section_data('about_us');
+
+// Make variables available to the template part
+$hero_image         = $hero_data['hero_image'];
+$hero_title         = $hero_data['hero_title'];
+$breadcrumb_home    = $hero_data['breadcrumb_home'];
+$breadcrumb_current = $hero_data['breadcrumb_current'];
+
+// Include the hero section template part
+get_template_part('template-parts/hero-section');
+
 ?>
-
-
-<section class="bg-gradient-to-r from-[#0F2033] to-[#1A2B3C] text-white py-20 px-4 text-center relative overflow-hidden"
-    style="background-image: url('https://customsclearance.ma/wp-content/uploads/2015/11/header_bg_6.jpg');  background-position: center; background-repeat: no-repeat; background-size: cover; height: 300px;">
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    <div class="container mx-auto max-w-[1221px] px-4 relative z-10">
-        <div class="text-center">
-            <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight">                
-                    <?php
-
-        if (isset($options['about_us_hero_title']) && !empty($options['about_us_hero_title'])) {
-            echo esc_html($options['about_us_hero_title']);
-        } else {
-         
-            echo 'Contactez-Nous'; 
-        }
-        ?>
-            </h1>
-            <div class="text-lg text-white mt-4">
-                <a href="<?php echo home_url(); ?>" class="hover:underline">Accueil</a> &raquo; <span>À propos</span>
-            </div>
-        </div>
-    </div>
-</section>
 
 <main class="py-20 px-4 bg-gray-50" id="main-content">
     <div class="container mx-auto max-w-[1221px] px-4">

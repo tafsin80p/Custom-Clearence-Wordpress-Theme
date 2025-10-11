@@ -5,28 +5,39 @@
  * This template is used for displaying the Cities page.
  */
 
-get_header(); ?>
+get_header();
+
+// Fetch the options from the theme options page
+$options = get_option('custom_clearance_theme_options');
+
+// Get the values for Hero Section
+$hero_image = isset($options['cities_hero_image']) ? $options['cities_hero_image'] : ''; 
+$hero_title = isset($options['cities_hero_title']) ? $options['cities_hero_title'] : 'Nos Villes'; 
+$breadcrumb_home = isset($options['cities_breadcrumb_home']) ? $options['cities_breadcrumb_home'] : 'Accueil'; 
+$breadcrumb_current = isset($options['cities_breadcrumb_current']) ? $options['cities_breadcrumb_current'] : 'Villes';
+?>
 
 <section class="bg-gradient-to-r from-[#0F2033] to-[#1A2B3C] text-white py-20 px-4 text-center relative overflow-hidden"
-    style="background-image: url('https://customsclearance.ma/wp-content/uploads/revslider/slider_3.jpg');  background-position: center; background-repeat: no-repeat; background-size: cover; height: 300px;">
+    style="background-image: url('<?php echo esc_url($hero_image); ?>'); background-position: center; background-repeat: no-repeat; background-size: cover; height: 300px;">
     <div class="absolute inset-0 bg-black opacity-50"></div>
     <div class="container mx-auto max-w-[1221px] px-4 relative z-10">
         <div class="text-center">
-            <h2 class="text-4xl font-bold text-[#ffffff] mb-4" data-aos="fade-up" data-aos-duration="1000"
-                data-aos-delay="200">
-                <?php echo get_theme_mod( 'cities_section_title', 'Réseau national' ); ?>
-            </h2>
-            <a href="<?php echo home_url(); ?>" class="hover:underline">Accueil</a> &raquo;
-            <span><?php echo get_theme_mod( 'cities_section_title', 'Réseau national' ); ?></span>
+            <h1 class="text-4xl lg:text-5xl font-bold text-white leading-tight">
+                <?php echo esc_html($hero_title); ?>
+            </h1>
+            <div class="text-lg text-white mt-4">
+                <a href="<?php echo home_url(); ?>" class="hover:underline"><?php echo esc_html($breadcrumb_home); ?></a> &raquo; 
+                <span><?php echo esc_html($breadcrumb_current); ?></span>
+            </div>
         </div>
     </div>
-    </div>
 </section>
+
+
 
 <!-- Main Content Section -->
 <section id="cities" class="cities-section py-20 bg-gray-50">
     <div class="container mx-auto max-w-[1221px] px-4">
-
         <!-- Cities List -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <?php
@@ -45,7 +56,7 @@ get_header(); ?>
                 data-aos="fade-up" data-aos-duration="1000">
                 <div class="flex items-start mb-4">
                     <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                       <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'thumbnail'); ?>" alt="<?php the_title(); ?>" class="w-5 h-5 object-cover rounded-lg">
+                       <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'thumbnail'); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="w-5 h-5 object-cover rounded-lg">
                     </div>
                     <div>
                         <h3 class="text-xl font-bold text-gray-900"><?php the_title(); ?></h3>
